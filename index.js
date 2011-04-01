@@ -1,5 +1,6 @@
-modules.exports = {
-	bind: require('./bind')
+module.exports = {
+	bind: require('./bind'),
+	isArray: require('./isArray'),
+	each: require('./each'),
+	map: require('./map')
 }
-
-
