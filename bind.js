@@ -39,7 +39,7 @@
 */
 
 module.exports = function bind(context, method /* curry1, curry2, ... curry3 */) {
-	if (typeof method == 'string') { method = context[string] }
+	if (typeof method == 'string') { method = context[method] }
 	var curryArgs = Array.prototype.slice.call(arguments, 2)
 	return function bound() {
 		var invocationArgs = Array.prototype.slice.call(arguments)
