@@ -1,3 +1,6 @@
+v0.1.5
++ fix bind when second argument is a string
+
 v0.1.4
 + implement extend
 
