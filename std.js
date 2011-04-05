@@ -1,11 +1,11 @@
 module.exports = {
-	Class: require('./Class'),
-	bind: require('./bind'),
-	isArray: require('./isArray'),
-	each: require('./each'),
-	map: require('./map'),
-	extend: require('./extend'),
-	pack: require('./pack'),
-	unpack: require('./unpack'),
-	crc32: require('./crc32')
+	Class: require('./lib/Class'),
+	bind: require('./lib/bind'),
+	isArray: require('./lib/isArray'),
+	each: require('./lib/each'),
+	map: require('./lib/map'),
+	extend: require('./lib/extend'),
+	pack: require('./lib/pack'),
+	unpack: require('./lib/unpack'),
+	crc32: require('./lib/crc32')
 }
