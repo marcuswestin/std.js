@@ -9,7 +9,7 @@
 		}
 
 		this._init = function(opts) {
-			std.extend(opts, defaults)
+			opts = std.extend(opts, defaults)
 			this._foo = opts.foo
 			this._bar = opts.bar
 		}
