@@ -7,9 +7,9 @@
     "url": "git://github.com/marcuswestin/std-js.git"
   },
   "author": "Marcus Westin <narcvs@gmail.com> (http://marcuswest.in)",
-  "main": "index",
+  "main": "std",
   "directories": {
-    "lib": "."
+    "lib": "lib"
   },
   "engines": {
     "node": "*"
