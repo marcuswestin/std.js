@@ -1,3 +1,6 @@
+v0.1.8
++ fix stupid mistake
+
 v0.1.7
 + import pack, unpack, crc32 and utf8_encode functions from phpjs
 + move function files into lib
