@@ -1,3 +1,7 @@
+v0.1.7
++ import pack, unpack, crc32 and utf8_encode functions from phpjs
++ move function files into lib
+
 v0.1.6
 + extend now returns the first argument, or a new object if first argument is null
 
