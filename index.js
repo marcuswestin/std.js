@@ -4,5 +4,8 @@ module.exports = {
 	isArray: require('./isArray'),
 	each: require('./each'),
 	map: require('./map'),
-	extend: require('./extend')
+	extend: require('./extend'),
+	pack: require('./pack'),
+	unpack: require('./unpack'),
+	crc32: require('./crc32')
 }
