@@ -1,5 +1,6 @@
 intended v0.1.9
 + implement strip, for stripping off the whitespace of strings
++ implement pick, for picking items out of an array
 
 v0.1.8
 + fix stupid mistake
