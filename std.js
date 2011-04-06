@@ -6,6 +6,7 @@ module.exports = {
 	map: require('./lib/map'),
 	pick: require('./lib/pick'),
 	extend: require('./lib/extend'),
+	slice: require('./lib/slice'),
 	pack: require('./lib/pack'),
 	unpack: require('./lib/unpack'),
 	crc32: require('./lib/crc32'),
