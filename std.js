@@ -7,5 +7,6 @@ module.exports = {
 	extend: require('./lib/extend'),
 	pack: require('./lib/pack'),
 	unpack: require('./lib/unpack'),
-	crc32: require('./lib/crc32')
+	crc32: require('./lib/crc32'),
+	strip: require('./lib/strip')
 }
