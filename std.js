@@ -1,6 +1,7 @@
 module.exports = {
 	Class: require('./lib/Class'),
 	bind: require('./lib/bind'),
+	curry: require('./lib/curry'),
 	isArray: require('./lib/isArray'),
 	each: require('./lib/each'),
 	map: require('./lib/map'),
