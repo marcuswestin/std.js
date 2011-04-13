@@ -1,3 +1,6 @@
+intended v0.1.13
++ implement xhr
+
 v0.1.12
 + enable e.g. require('std/curry')
 
