@@ -1,3 +1,6 @@
+v0.1.12
++ enable e.g. require('std/curry')
+
 v0.1.11
 + add MIT license
 + implement curry
