@@ -1,3 +1,7 @@
+v0.1.15
++ JSON.stringify xhr query parameters
++ Use JSON.parse rather than eval to parse responses. Much safer :)
+
 v0.1.14
 + implement xhr
 + implement Publisher
