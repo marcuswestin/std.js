@@ -1,5 +1,6 @@
-intended v0.1.13
+v0.1.14
 + implement xhr
++ implement Publisher
 
 v0.1.12
 + enable e.g. require('std/curry')
