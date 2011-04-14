@@ -18,11 +18,11 @@ function request(method, url, params, callback, opts) {
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState != 4) { return }
 		if (xhr.status != 200) { return callback(xhr.status, null) }
-		var result = (opts.json ? eval('('+xhr.responseText+')') : xhr.responseText)
+		var result = (opts.json ? JSON.parse(xhr.responseText) : xhr.responseText)
 		callback(null, result)
 	}
 	var data = null,
-		queryArr = map(params, function(value, key) { return encodeURIComponent(key) + '=' + encodeURIComponent(value) })
+		queryArr = map(params, function(value, key) { return encodeURIComponent(key) + '=' + encodeURIComponent(JSON.stringify(value)) })
 	if (method == 'GET') {
 		if (url.indexOf('?') != -1) { url = url + '?' }
 		url += queryArr.join('&')
