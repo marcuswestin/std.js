@@ -1,8 +1,8 @@
 var each = require('./each')
 
-module.exports = function(items, fn) {
+module.exports = function(items, ctx, fn) {
 	var result = []
-	each(items, function(item, key) {
+	each(items, ctx, function(item, key) {
 		result.push(fn(item, key))
 	})
 	return result
