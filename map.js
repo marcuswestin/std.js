@@ -7,7 +7,7 @@ module.exports = function(items, ctx, fn) {
 		ctx = this
 	}
 	each(items, ctx, function(item, key) {
-		result.push(fn(item, key))
+		result.push(fn.call(ctx, item, key))
 	})
 	return result
 }
