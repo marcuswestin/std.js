@@ -2,6 +2,7 @@ intended v0.1.17
 + implement delay
 + implement ui/Component
 + implement ui/Select
++ implement ui/Input
 
 v0.1.16
 + Allow for passing in a context to each and map
