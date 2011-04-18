@@ -2,6 +2,7 @@ module.exports = {
 	Class: require('./Class'),
 	bind: require('./bind'),
 	curry: require('./curry'),
+	delay: require('./delay'),
 	isArray: require('./isArray'),
 	each: require('./each'),
 	map: require('./map'),
