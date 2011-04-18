@@ -36,7 +36,6 @@ module.exports = std.Class(function() {
 
 	this._scheduleEmailDispatch = std.delay(function() {
 		var message = std.map(this._emailQueue, joinParts).join('\n')
-		console.log("EMAIL", message)
 		// TODO send message to error reporting email address
 	}, 10000) // Send at most one email per 10 seconds
 })
