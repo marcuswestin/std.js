@@ -1,5 +1,6 @@
 intended v0.1.17
 + implement delay
++ implement Logger
 + implement ui/Component
 + implement ui/Select
 + implement ui/Input
