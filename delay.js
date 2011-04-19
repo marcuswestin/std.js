@@ -36,8 +36,9 @@ module.exports = function(fn, delay) {
 	return function() {
 		var args = arguments
 		if (timeout) { return }
+		var self = this
 		timeout = setTimeout(function() {
-			fn.apply(this, args)
+			fn.apply(self, args)
 		}, delay)
 	}
 }
