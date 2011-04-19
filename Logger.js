@@ -8,6 +8,7 @@ module.exports = std.Class(function() {
 	}
 
 	this._init = function(opts) {
+		if (typeof opts == 'string') { opts = { name:opts } }
 		opts = std.extend(opts, defaults)
 		this._name = opts.name
 		this._emailQueue = []
