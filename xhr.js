@@ -24,7 +24,7 @@ function request(method, url, params, callback, opts) {
 	var data = null,
 		queryArr = map(params, function(value, key) { return encodeURIComponent(key) + '=' + encodeURIComponent(JSON.stringify(value)) })
 	if (method == 'GET') {
-		if (url.indexOf('?') != -1) { url = url + '?' }
+		if (url.indexOf('?') == -1) { url = url + '?' }
 		url += queryArr.join('&')
 	} else if (method == 'POST') {
 		data = queryArr.join('&')
