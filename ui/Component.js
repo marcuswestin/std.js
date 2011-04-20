@@ -7,10 +7,20 @@ module.exports = Class(Publisher, function(supr) {
 	
 	this._elTag = 'div'
 	this._elType = null
+	this._class = null
+
+	var defaults = {
+		'class': null
+	}
+	this._init = function(opts) {
+		supr(this, '_init', arguments)
+		opts = extend(opts, defaults)
+		if (typeof opts['class'] == 'string') { this._class = opts['class'] }
+	}
 	
 	this.getElement = function() {
 		if (this._el) { return this._el }
-		this._el = this.dom({ tag:this._elTag, type:this._elType })
+		this._el = this.dom({ tag:this._elTag, type:this._elType, 'class':this._class })
 		if (this._createContent) { this._createContent() }
 		return this._el
 	}
