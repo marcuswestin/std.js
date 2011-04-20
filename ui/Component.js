@@ -48,6 +48,7 @@ module.exports = Class(Publisher, function(supr) {
 		} else {
 			el.innerHTML = slice(arguments, 1).join('')
 		}
+		return this
 	}
 
 	this.appendTo = function(el) {
