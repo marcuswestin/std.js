@@ -1,4 +1,6 @@
-intended v0.1.19
+v0.1.19
++ Add xhr option not to encode values
++ Rename ui/Component#_dom to dom
 + Fix xhr get requests without a ? in the URL
 + fix context bug in delay
 
