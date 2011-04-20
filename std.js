@@ -3,6 +3,7 @@ module.exports = {
 	bind: require('./bind'),
 	curry: require('./curry'),
 	delay: require('./delay'),
+	invoke: require('./invoke'),
 	isArray: require('./isArray'),
 	each: require('./each'),
 	map: require('./map'),
