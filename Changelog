@@ -1,3 +1,8 @@
+intended v0.1.20
++ ui/Component API cleanup
++ implement ui/Component display, hide and show
++ better xhr error checking and xhr object cleanup
+
 v0.1.19
 + Add xhr option not to encode values
 + Rename ui/Component#_dom to dom
