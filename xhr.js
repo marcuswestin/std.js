@@ -16,10 +16,15 @@ function request(method, url, params, callback, opts) {
 	method = method.toUpperCase()
 	opts = opts || {}
 	xhr.onreadystatechange = function() {
-		if (xhr.readyState != 4) { return }
-		if (xhr.status != 200) { return callback(xhr.status, null) }
-		var result = (opts.json ? JSON.parse(xhr.responseText) : xhr.responseText)
-		callback(null, result)
+		try {
+			if (xhr.readyState != 4) { return }
+			if (xhr.status != 200) { return callback(new Error(xhr.status)) }
+			var result = (opts.json ? JSON.parse(xhr.responseText) : xhr.responseText)
+			callback(null, result)
+		} catch(e) {
+			callback(null)
+			_abortXHR(xhr)
+		}
 	}
 	var data = null,
 		encode = (opts.encode !== false),
@@ -42,4 +47,15 @@ function request(method, url, params, callback, opts) {
 
 function json(method, url, params, callback) {
 	return request(method, url, params, callback, { json:true })
+}
+
+function _abortXHR(xhr) {
+	try {
+		if('onload' in xhr) {
+			xhr.onload = xhr.onerror = xhr.ontimeout = null;
+		} else if('onreadystatechange' in xhr) {
+			xhr.onreadystatechange = null;
+		}
+		if(xhr.abort) { xhr.abort(); }
+	} catch(e) {}
 }
