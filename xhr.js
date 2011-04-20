@@ -22,7 +22,9 @@ function request(method, url, params, callback, opts) {
 		callback(null, result)
 	}
 	var data = null,
-		queryArr = map(params, function(value, key) { return encodeURIComponent(key) + '=' + encodeURIComponent(JSON.stringify(value)) })
+		encode = (opts.encode !== false),
+		queryArr = map(params, function(value, key) {
+			return (encode ? encodeURIComponent(key) : key) + '=' + (encode ? encodeURIComponent(JSON.stringify(value)) : value) })
 	if (method == 'GET') {
 		if (url.indexOf('?') == -1) { url = url + '?' }
 		url += queryArr.join('&')
