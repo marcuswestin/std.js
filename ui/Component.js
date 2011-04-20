@@ -1,6 +1,7 @@
 var Class = require('std/Class'),
 	Publisher = require('std/Publisher'),
-	extend = require('std/extend')
+	extend = require('std/extend'),
+	slice = require('std/slice')
 
 module.exports = Class(Publisher, function(supr) {
 	
@@ -31,12 +32,12 @@ module.exports = Class(Publisher, function(supr) {
 	}
 	this._dom = this.dom // deprecated
 	
-	this.html = function(el, html) {
-		if (typeof html != 'string') {
-			html = el
-			el = this.getElement()
+	this.html = function(el, html1 /*, ..., htmlN */) {
+		if (typeof html1 != 'string') {
+			this.getElement().innerHTML = el
+		} else {
+			el.innerHTML = slice(arguments, 1).join('')
 		}
-		el.innerHTML = html
 	}
 
 	this.appendTo = function(el) {
