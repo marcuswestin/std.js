@@ -85,6 +85,17 @@ module.exports = Class(Publisher, function(supr) {
 		el.parentNode.removeChild(el)
 		return this
 	}
+
+	this.display = function(el, doShow) {
+		if (doShow === undefined) {
+			doShow = el
+			el = this.getElement()
+		}
+		el.style.display = doShow ? 'block' : 'none'
+	}
+
+	this.show = function(el) { this.display(el instanceof Element ? el : true, el instanceof Element ? true : undefined) }
+	this.hide = function(el) { this.display(el instanceof Element ? el : false, el instanceof Element ? false : undefined) }
 	
 	/* Class names
 	 *************/
