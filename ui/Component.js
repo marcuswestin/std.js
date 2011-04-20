@@ -9,7 +9,7 @@ module.exports = Class(Publisher, function(supr) {
 	
 	this.getElement = function() {
 		if (this._el) { return this._el }
-		this._el = this._dom({ tag:this._elTag, type:this._elType })
+		this._el = this.dom({ tag:this._elTag, type:this._elType })
 		if (this._createContent) { this._createContent() }
 		return this._el
 	}
@@ -19,7 +19,7 @@ module.exports = Class(Publisher, function(supr) {
 	var domDefaults = {
 		tag: 'div'
 	}
-	this._dom = function(opts) {
+	this.dom = function(opts) {
 		opts = extend(opts, domDefaults)
 		var el = document.createElement(opts.tag)
 		if (opts.type) { el.type = opts.type }
@@ -29,6 +29,7 @@ module.exports = Class(Publisher, function(supr) {
 		if (opts.value) { el.value = opts.value }
 		return el
 	}
+	this._dom = this.dom // deprecated
 	
 	this.html = function(el, html) {
 		if (typeof html != 'string') {
