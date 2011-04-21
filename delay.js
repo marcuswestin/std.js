@@ -33,13 +33,19 @@
 module.exports = function(fn, delay) {
 	if (typeof delay != 'number') { delay = 50 }
 	var timeout
-	return function() {
-		var args = arguments
+	var delayedFn = function delayed() {
 		if (timeout) { return }
-		var self = this
+		var args = arguments,
+			self = this
 		timeout = setTimeout(function() {
+			delayedFn.clear()
 			fn.apply(self, args)
 		}, delay)
 	}
+	delayedFn.clear = function() {
+		clearTimeout(timeout)
+		timeout = null
+	}
+	return delayedFn
 }
 
