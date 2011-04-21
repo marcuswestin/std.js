@@ -40,7 +40,7 @@ module.exports = std.Class(function() {
 			messages = std.map(this._emailQueue, joinParts).join('\n\n'),
 			s = emailAlertSettings,
 			from = [s.username, '@', s.domain].join(''),
-			to = [s.alert, '+', s.component, '@', s.domain].join('')
+			to = [s.alert, '+', this._name.replace(/\s/g, '_'), '@', s.domain].join('')
 
 		this._emailQueue = []
 
