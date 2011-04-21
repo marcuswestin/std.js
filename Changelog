@@ -6,6 +6,7 @@ intended v0.1.20
 + rename pick to filter. deprecate pick, but keep it around for now
 + give Logger alert email functionality
 + Fix delay
++ fix ui/Input defaultValue class name mixup
 
 v0.1.19
 + Add xhr option not to encode values
