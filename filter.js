@@ -1,11 +1,11 @@
 /*
 	Example usage:
-	pick([1,2,0,'',false,null,undefined]) // -> [1,2,0,'',false]
-	pick([1,2,3], function(val, index) { val == 1 }) // -> [1]
+	filter([1,2,0,'',false,null,undefined]) // -> [1,2,0,'',false]
+	filter([1,2,3], function(val, index) { val == 1 }) // -> [1]
 */
 var each = require('./each')
 
-module.exports = function pick(arr, fn) {
+module.exports = function filter(arr, fn) {
 	var result = []
 	if (!fn) { fn = falseOrTruthy }
 	each(arr, function(value, index) {
