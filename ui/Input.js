@@ -34,13 +34,13 @@ module.exports = Class(UIComponent, function(supr) {
 	this._onFocus = function() {
 		if (this._el.value != this._defaultValue) { return }
 		this._el.value = ''
-		this.addClass('defaultValue')
+		this.removeClass('defaultValue')
 	}
 
 	this._onBlur = function() {
 		if (this._el.value) { return }
 		this._el.value = this._defaultValue
-		this.removeClass('defaultValue')
+		this.addClass('defaultValue')
 	}
 
 	this._onKeyPress = function() {
