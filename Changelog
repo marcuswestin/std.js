@@ -3,6 +3,7 @@ intended v0.1.20
 + implement ui/Component display, hide and show
 + better xhr error checking and xhr object cleanup
 + implement invoke
++ rename pick to filter. deprecate pick, but keep it around for now
 
 v0.1.19
 + Add xhr option not to encode values

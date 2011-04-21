@@ -7,7 +7,8 @@ module.exports = {
 	isArray: require('./isArray'),
 	each: require('./each'),
 	map: require('./map'),
-	pick: require('./pick'),
+	pick: require('./pick'), // deprecated in favor of filter
+	filter: require('./filter'),
 	extend: require('./extend'),
 	slice: require('./slice'),
 	pack: require('./pack'),
