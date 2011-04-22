@@ -30,22 +30,17 @@
 	})
 */
 	
+var unique = 0
 module.exports = function(fn, delay) {
 	if (typeof delay != 'number') { delay = 50 }
-	var timeout
-	var delayedFn = function delayed() {
-		if (timeout) { return }
-		var args = arguments,
-			self = this
-		timeout = setTimeout(function() {
-			delayedFn.clear()
+	var timeoutName = '__delayTimeout__' + (++unique)
+	return function delayed() {
+		if (this[timeoutName]) { return }
+		var args = arguments, self = this
+		this[timeoutName] = setTimeout(function fireDelayed() {
+			clearTimeout(self[timeoutName])
+			delete self[timeoutName]
 			fn.apply(self, args)
 		}, delay)
 	}
-	delayedFn.clear = function() {
-		clearTimeout(timeout)
-		timeout = null
-	}
-	return delayedFn
 }
-
