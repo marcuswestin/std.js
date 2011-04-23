@@ -92,10 +92,11 @@ module.exports = Class(Publisher, function(supr) {
 			el = this.getElement()
 		}
 		el.style.display = doShow ? 'block' : 'none'
+		return this
 	}
 
-	this.show = function(el) { this.display(el instanceof Element ? el : true, el instanceof Element ? true : undefined) }
-	this.hide = function(el) { this.display(el instanceof Element ? el : false, el instanceof Element ? false : undefined) }
+	this.show = function(el) { return this.display(el instanceof Element ? el : true, el instanceof Element ? true : undefined) }
+	this.hide = function(el) { return this.display(el instanceof Element ? el : false, el instanceof Element ? false : undefined) }
 	
 	/* Class names
 	 *************/
