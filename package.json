@@ -1,7 +1,7 @@
 {
   "name": "std",
   "description": "A collection of all the standard JS functionality I recreate all the time",
-  "version": "0.1.19",
+  "version": "0.1.20",
   "repository": {
     "type": "git",
     "url": "git://github.com/marcuswestin/std-js.git"
