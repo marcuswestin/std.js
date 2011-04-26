@@ -127,23 +127,33 @@ module.exports = Class(Publisher, function(supr) {
 		return this
 	}
 	
+	/*
+		Example usage:
+
+			this.toggleClass('highlight')
+			this.toggleClass('highlight', false)
+			this.toggleClass(el, 'highlight')
+			this.toggleClass(el, 'highlight', false)
+	*/
 	this.toggleClass = function(el, className, shouldHave) {
-		if (arguments.length == 2) {
+		if (typeof el == 'string') {
 			shouldHave = className
 			className = el
-			el = this._el
+			el = this.getElement()
 		}
-		if (shouldHave) { this.addClassName(el, className) }
-		else { this.removeClassName(el, className) }
+		if (shouldHave === undefined) { shouldHave = !this.hasClass(el, className) }
+		if (shouldHave == this.hasClass(el, className)) { return this }
+		if (shouldHave) { this.addClass(el, className) }
+		else { this.removeClass(el, className) }
 		return this
 	}
 
-	this._hasClass = function(el, className) {
+	this.hasClass = function(el, className) {
 		if (arguments.length == 1) {
 			className = el
-			el = this._el
+			el = this.getElement()
 		}
-		return !!this._el.className.match(' ' + className + ' ')
+		return !!el.className.match(' ' + className + ' ')
 	}
 	
 	/* Events
