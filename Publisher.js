@@ -18,7 +18,7 @@ module.exports = Class(function() {
 	this._publish = function(signal) {
 		var args = slice(arguments, 1),
 			subscribers = this._subscribers[signal]
-		if (!signal) { return this }
+		if (!signal || !subscribers) { return this }
 		for (var i=0; i<subscribers.length; i++) {
 			subscribers[i].apply(this, args)
 		}
