@@ -9,6 +9,7 @@ module.exports = {
 	map: require('./map'),
 	pick: require('./pick'), // deprecated in favor of filter
 	filter: require('./filter'),
+	flatten: require('./flatten'),
 	extend: require('./extend'),
 	slice: require('./slice'),
 	pack: require('./pack'),
