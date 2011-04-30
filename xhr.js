@@ -16,14 +16,17 @@ function request(method, url, params, callback, opts) {
 	method = method.toUpperCase()
 	opts = opts || {}
 	xhr.onreadystatechange = function() {
+		var err, result
 		try {
 			if (xhr.readyState != 4) { return }
 			if (xhr.status != 200) { return callback(new Error(xhr.status)) }
-			var result = (opts.json ? JSON.parse(xhr.responseText) : xhr.responseText)
-			callback(null, result)
+			result = (opts.json ? JSON.parse(xhr.responseText) : xhr.responseText)
 		} catch(e) {
-			callback(null)
+			err = e
+		}
+		if (err || result) {
 			_abortXHR(xhr)
+			callback(err, result)
 		}
 	}
 	var data = null,

@@ -3,6 +3,8 @@ intended v0.1.21
 + implement copy - shallow object/array copying, with a flag for deep copying
 + implement keys
 + implement flatten
++ clean up xhr code
+
 
 v0.1.20
 + ui/Component API cleanup
