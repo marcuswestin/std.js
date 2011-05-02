@@ -1,7 +1,9 @@
 var Class = require('std/Class'),
 	Publisher = require('std/Publisher'),
 	extend = require('std/extend'),
-	slice = require('std/slice')
+	slice = require('std/slice'),
+	remove = require('std/remove'),
+	bind = require('std/bind')
 
 module.exports = Class(Publisher, function(supr) {
 	
@@ -16,6 +18,7 @@ module.exports = Class(Publisher, function(supr) {
 		supr(this, '_init', arguments)
 		opts = extend(opts, defaults)
 		if (typeof opts['class'] == 'string') { this._class = opts['class'] }
+		this._events = {}
 	}
 	
 	this.getElement = function() {
@@ -167,26 +170,60 @@ module.exports = Class(Publisher, function(supr) {
 			el = this._el
 		}
 		
-		// Is removeEvent going to work properly when we wrap the handler in another function?
-		function normalizeEvent(e) {
-			e = e || event
-			var eventObj = { keyCode: e.keyCode, metaKey: e.metaKey, target: e.target || e.srcElement }
-			eventObj.cancel = function() {
-				if (e.preventDefault) { e.preventDefault() }
-				else { e.returnValue = false }
+		var handlers = this._events[eventName]
+		if (handlers) {
+			handlers.push(handler)
+		} else {
+			this._events[eventName] = [handler]
+			var trueHandler = this._events[eventName + '__handler__'] = bind(this, '_onEvent', eventName)
+			if (el.addEventListener) {
+				el.addEventListener(eventName, trueHandler, false)
+			} else if (el.attachEvent){
+				el.attachEvent("on"+eventName, trueHandler)
 			}
-			if (e.type == 'keypress') {
-				eventObj.charCode = (eventObj.charCode == 13 && eventObj.keyCode == 13) 
-				? 0 // in Webkit, return gives a charCode as well as a keyCode. Should only be a keyCode
-				: e.charCode
-			}
-			handler(eventObj)
+		}
+		return this
+	}
+
+	this._onEvent = function(eventName, e) {
+		e = e || event
+		var eventObj = { keyCode: e.keyCode, metaKey: e.metaKey,
+			target: e.target || e.srcElement,
+			x:e.clientX, y:e.clientY }
+		
+		eventObj.cancel = function() {
+			if (e.preventDefault) { e.preventDefault() }
+			else { e.returnValue = false }
+		}
+		if (e.type == 'keypress') {
+			eventObj.charCode = (eventObj.charCode == 13 && eventObj.keyCode == 13) 
+			? 0 // in Webkit, return gives a charCode as well as a keyCode. Should only be a keyCode
+			: e.charCode
+		}
+		var handlers = this._events[eventName]
+		for (var i=0; i<handlers.length; i++) {
+			handlers[i](eventObj)
+		}
+	}
+
+	this._off = function(el, eventName, handler) {
+		if (arguments.length == 2) { 
+			handler = eventName
+			eventName = el
+			el = this._el
 		}
 
-		if (el.addEventListener) {
-			el.addEventListener(eventName, normalizeEvent, false)
-		} else if (el.attachEvent){
-			el.attachEvent("on"+eventName, normalizeEvent)
+		if (handler) {
+			remove(this._events[eventName], handler)
+		} else {
+			var trueHandler = this._events[eventName + '__handler__']
+			delete this._events[eventName]
+			delete this._events[eventName + '__handler__']
+			if (el.removeEventListener) {
+				el.removeEventListener(eventName, trueHandler, false)
+			} else if (el.detachEvent) {
+				el.detachEvent("on"+eventName, trueHandler)
+			}
 		}
 		return this
 	}
@@ -307,4 +344,47 @@ module.exports = Class(Publisher, function(supr) {
 		}
 	}
 	// end jQuery positioning code
+
+	/* Drag and drop
+	 ***************/
+	var defaults = { threshold:5 }
+	this._makeDraggable = function(opts) {
+		opts = extend(opts, defaults)
+		this._on('mousedown', bind(this, '_onDragMouseDown', opts))
+		return this
+	}
+
+	this._onDragMouseDown = function(opts, e) {
+		this._drag = { x:e.x, y:e.y, pastThreshold:false }
+		this._dragMouseMoveHandler = bind(this, '_onDragMouseMove', opts)
+		this._dragMouseUpHandler = bind(this, '_onDragMouseUp')
+		this
+			._on(document, 'mousemove', this._dragMouseMoveHandler)
+			._on(document, 'mouseup', this._dragMouseUpHandler)
+	}
+
+	this._onDragMouseMove = function(opts, e) {
+		var data = this._getDragData(e)
+		if (this._drag.pastThreshold) {
+			this._publish('drag', data)
+		} else {
+			if (data.dx^2 + data.dy^2 > opts.threshold^2) {
+				this._drag.pastThreshold = true
+				this._publish('drag', data)
+			}
+		}
+	}
+
+	this._onDragMouseUp = function(e) {
+		var data = this._getDragData(e)
+		delete this._drag
+		this
+			._off(document, 'mousemove', this._dragMouseMoveHandler)
+			._off(document, 'mouseup', this._dragMouseUpHandler)
+	}
+
+	this._getDragData = function(e) {
+		var drag = this._drag
+		return { dstX:e.x, dstY:e.y, dx:drag.x - e.x, dy:drag.y - e.y }
+	}
 })
