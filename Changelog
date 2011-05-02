@@ -1,4 +1,4 @@
-intended v0.1.21
+v0.1.21
 + start implementing std/time
 + implement copy - shallow object/array copying, with a flag for deep copying
 + implement keys
