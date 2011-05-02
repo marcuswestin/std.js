@@ -24,7 +24,7 @@ function request(method, url, params, callback, opts) {
 		} catch(e) {
 			err = e
 		}
-		if (err || result) {
+		if (err || typeof result != undefined) {
 			_abortXHR(xhr)
 			callback(err, result)
 		}

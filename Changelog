@@ -4,6 +4,7 @@ intended v0.1.21
 + implement keys
 + implement flatten
 + clean up xhr code
++ fix xhr bug where callback would not get called for empty responses
 
 
 v0.1.20
