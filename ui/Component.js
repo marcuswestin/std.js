@@ -205,15 +205,25 @@ module.exports = Class(Publisher, function(supr) {
 			}
 		}
 
+		if (typeof e.pageX == 'number')   {
+			eventObj.x = e.pageX
+			eventObj.y = e.pageY
+		} else if (typeof e.clientX == 'number') {
+			eventObj.x = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft
+			eventObj.y = e.clientY + document.body.scrollTop + document.documentElement.scrollTop
+		}
+
 		eventObj.cancel = function() {
 			if (e.preventDefault) { e.preventDefault() }
 			else { e.returnValue = false }
 		}
+
 		if (e.type == 'keypress') {
 			eventObj.charCode = (eventObj.charCode == 13 && eventObj.keyCode == 13) 
 			? 0 // in Webkit, return gives a charCode as well as a keyCode. Should only be a keyCode
 			: e.charCode
 		}
+
 		var handlers = this._events[eventName]
 		for (var i=0; i<handlers.length; i++) {
 			handlers[i](eventObj)
