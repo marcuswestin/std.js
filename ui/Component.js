@@ -3,7 +3,8 @@ var Class = require('std/Class'),
 	extend = require('std/extend'),
 	slice = require('std/slice'),
 	remove = require('std/remove'),
-	bind = require('std/bind')
+	bind = require('std/bind'),
+	browser = require('std/browser')
 
 module.exports = Class(Publisher, function(supr) {
 	
@@ -177,8 +178,8 @@ module.exports = Class(Publisher, function(supr) {
 			this._events[eventName] = [handler]
 			var trueHandler = this._events[eventName + '__handler__'] = bind(this, '_onEvent', eventName)
 			if (el.addEventListener) {
-				el.addEventListener(eventName, trueHandler, false)
-			} else if (el.attachEvent){
+				el.addEventListener(browser.isFirefox ? 'MozMousePixelScroll' : eventName, trueHandler, false)
+			} else if (el.attachEvent) {
 				el.attachEvent("on"+eventName, trueHandler)
 			}
 		}
@@ -188,9 +189,22 @@ module.exports = Class(Publisher, function(supr) {
 	this._onEvent = function(eventName, e) {
 		e = e || event
 		var eventObj = { keyCode: e.keyCode, metaKey: e.metaKey,
-			target: e.target || e.srcElement,
-			x:e.clientX, y:e.clientY }
-		
+			target: e.target || e.srcElement }
+
+		if (eventName == 'mousewheel') {
+			// http://adomas.org/javascript-mouse-wheel/
+			// https://developer.mozilla.org/en/Gecko-Specific_DOM_Events
+			if (typeof e.wheelDeltaX == 'number') {
+				eventObj.dx = -e.wheelDeltaX
+				eventObj.dy = -e.wheelDeltaY
+			} else if (e.wheelDelta) {
+				eventObj.dy = -e.wheelDelta
+			} else if (e.detail) {
+				if (e.axis == e.HORIZONTAL_AXIS) { eventObj.dx = e.detail }
+				if (e.axis == e.VERTICAL_AXIS) { eventObj.dy = e.detail }
+			}
+		}
+
 		eventObj.cancel = function() {
 			if (e.preventDefault) { e.preventDefault() }
 			else { e.returnValue = false }
