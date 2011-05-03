@@ -410,10 +410,24 @@ module.exports = Class(Publisher, function(supr) {
 		this
 			._off(document, 'mousemove', this._dragMouseMoveHandler)
 			._off(document, 'mouseup', this._dragMouseUpHandler)
+		this._publish('drop', data)
 	}
 
 	this._getDragData = function(e) {
-		var drag = this._drag
-		return { dstX:e.x, dstY:e.y, dx:drag.x - e.x, dy:drag.y - e.y }
+		var drag = this._drag,
+			start = drag.start,
+			last = drag.last
+
+		var data = {
+			src:    { x: start.x,       y: start.y },
+			dst:    { x: e.x,           y: e.y },
+			offset: { x: e.x - start.x, y: e.y - start.y },
+			delta:  { x: e.x - last.x,  y: e.y - last.y }
+		}
+
+		last.x = e.x
+		last.y = e.y
+
+		return data
 	}
 })
