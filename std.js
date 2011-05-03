@@ -3,7 +3,7 @@ module.exports = {
 	bind: require('./bind'),
 	curry: require('./curry'),
 	throttle: require('./throttle'),
-	delay: require('./throttle'), // deprecated in favor of throttle
+	delay: require('./delay'),
 	invoke: require('./invoke'),
 	isArray: require('./isArray'),
 	each: require('./each'),
