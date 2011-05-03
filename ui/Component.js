@@ -379,7 +379,12 @@ module.exports = Class(Publisher, function(supr) {
 	}
 
 	this._onDragMouseDown = function(opts, e) {
-		this._drag = { x:e.x, y:e.y, pastThreshold:false }
+		e.cancel()
+		this._drag = {
+			pastThreshold:false,
+			start:{ x:e.x, y:e.y },
+			last: { x:e.x, y:e.y }
+		}
 		this._dragMouseMoveHandler = bind(this, '_onDragMouseMove', opts)
 		this._dragMouseUpHandler = bind(this, '_onDragMouseUp')
 		this
