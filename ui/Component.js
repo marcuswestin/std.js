@@ -178,7 +178,9 @@ module.exports = Class(Publisher, function(supr) {
 			this._events[eventName] = [handler]
 			var trueHandler = this._events[eventName + '__handler__'] = bind(this, '_onEvent', eventName)
 			if (el.addEventListener) {
-				el.addEventListener(browser.isFirefox ? 'MozMousePixelScroll' : eventName, trueHandler, false)
+				el.addEventListener(
+					( eventName == 'mousewheel' && browser.isFirefox ? 'MozMousePixelScroll'
+					: eventName), trueHandler, false)
 			} else if (el.attachEvent) {
 				el.attachEvent("on"+eventName, trueHandler)
 			}
