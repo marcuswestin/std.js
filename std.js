@@ -2,7 +2,8 @@ module.exports = {
 	Class: require('./Class'),
 	bind: require('./bind'),
 	curry: require('./curry'),
-	delay: require('./delay'),
+	throttle: require('./throttle'),
+	delay: require('./throttle'), // deprecated in favor of throttle
 	invoke: require('./invoke'),
 	isArray: require('./isArray'),
 	each: require('./each'),
