@@ -5,6 +5,7 @@ intended v0.1.22
 + change implementation of delay to actually delay, rather than throttle
 + Improved ui/Component event normalization (notably mousewheel)
 + Implement browser
++ Implement math.round
 
 v0.1.21
 + start implementing std/time
