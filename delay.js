@@ -29,10 +29,9 @@
 		}, 5000) // send emails at most once every 5 seconds
 	})
 */
-var unique = 0
-module.exports = function delay(fn, delay) {
-	if (typeof delay != 'number') { delay = 50 }
-	var timeoutName = '__delayTimeout__' + (++unique)
+module.exports = function delay(fn, delayBy) {
+	if (typeof delayBy != 'number') { delayBy = 50 }
+	var timeoutName = '__delayTimeout__' + (++module.exports._unique)
 	return function delayed() {
 		if (this[timeoutName]) {
 			clearTimeout(this[timeoutName])
@@ -42,6 +41,7 @@ module.exports = function delay(fn, delay) {
 			clearTimeout(self[timeoutName])
 			delete self[timeoutName]
 			fn.apply(self, args)
-		}, delay)
+		}, delayBy)
 	}
 }
+module.exports._unique = 0
