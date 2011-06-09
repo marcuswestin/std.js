@@ -5,6 +5,9 @@ v0.1.23
 + implement invokeWith
 + implement recall
 + implement Publisher mixin
++ implement dom
++ implement client
++ implement popup
 
 v0.1.22
 + implement ui/Component#_off

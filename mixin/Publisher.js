@@ -11,9 +11,7 @@ module.exports = {
   
   _publish: function(signal /*, arg1, arg2, ... */) {
     var curryArgs = slice(arguments, 1)
-    console.log('pub 1')
     each(this.__publisher.subscribers[signal], invokeWith(curryArgs))
-    console.log('pub 2')
   },
   
   subscribe: function(signal, callback) {
