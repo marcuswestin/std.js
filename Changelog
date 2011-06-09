@@ -1,6 +1,10 @@
 v0.1.23
 + rename class _init to init
 + add support for mixins
++ implement Promise
++ implement invokeWith
++ implement recall
++ implement Publisher mixin
 
 v0.1.22
 + implement ui/Component#_off
