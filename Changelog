@@ -1,3 +1,7 @@
+v0.1.23
++ rename class _init to init
++ add support for mixins
+
 v0.1.22
 + implement ui/Component#_off
 + implement ui/Component#_makeDraggable - publishes 'drag' and 'drop' events, both with a data object describing the drag
@@ -82,7 +86,7 @@ v0.1.4
 + implement extend
 
 v0.1.3
-+ call class initializer functions _init rather than _initialize
++ call class initializer functions _init rather than initialize
 
 v0.1.2
 + implement Class

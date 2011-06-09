@@ -7,7 +7,7 @@ module.exports = std.Class(function() {
 		name: 'Logger'
 	}
 
-	this._init = function(opts) {
+	this.init = function(opts) {
 		if (typeof opts == 'string') { opts = { name:opts } }
 		opts = std.extend(opts, defaults)
 		this._name = opts.name

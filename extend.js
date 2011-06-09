@@ -8,7 +8,7 @@
 			bar: 'dum'
 		}
 
-		this._init = function(opts) {
+		this.init = function(opts) {
 			opts = std.extend(opts, defaults)
 			this._foo = opts.foo
 			this._bar = opts.bar

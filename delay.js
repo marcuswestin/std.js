@@ -14,7 +14,7 @@
 
 	// Bath messages into a single email
 	var EmailBatcher = Class(function() {
-		this._init = function() {
+		this.init = function() {
 			this._queue = []
 		}
 

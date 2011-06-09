@@ -4,7 +4,7 @@ var Class = require('./Class'),
 
 module.exports = Class(function() {
 
-	this._init = function() {
+	this.init = function() {
 		this._subscribers = {}
 	}
 	
