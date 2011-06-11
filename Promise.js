@@ -17,6 +17,6 @@ module.exports = Class(function() {
   this.fulfill = function(/* arg1, arg2, ...*/) {
     if (this.fulfillment_) { throw new Error('Promise fulfilled twice') }
     this.fulfillment_ = slice(arguments)
-    each(this.dependants_, invokeWith(this.fulfillment_))
+    each(this.dependants_, invokeWith.apply(this, this.fulfillment_))
   }
 })
