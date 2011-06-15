@@ -8,7 +8,7 @@ module.exports = function(url, winID, opts) {
 
 	var popupStr = map(opts, function(val, key) { return key+'='+val }).join(',')
 
-	return window.open(url, id, popupStr)
+	return window.open(url, winID, popupStr)
 }
 
 module.exports.defaults = {
