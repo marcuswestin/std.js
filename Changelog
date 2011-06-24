@@ -1,3 +1,6 @@
+intended v0.1.24
++ implement cookie.get
+
 v0.1.23
 + rename class _init to init
 + add support for mixins
