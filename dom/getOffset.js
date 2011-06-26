@@ -1,31 +1,3 @@
-var dom = module.exports
-
-// From http://james.padolsey.com/javascript/get-document-height-cross-browser/
-// "This function will return any document’s height. It’s been tested in IE6/7, FF2/3, Safari (Windows), Google Chrome and Opera 9.5. If the actual document’s body height is less than the viewport height then it will return the viewport height instead"
-dom.getDocumentHeight = function(doc) {
-  var body = doc.body,
-    docEl = doc.documentElement
-  
-  return Math.max(
-    Math.max(body.scrollHeight, docEl.scrollHeight),
-    Math.max(body.offsetHeight, docEl.offsetHeight),
-    Math.max(body.clientHeight, docEl.clientHeight)
-  )
-}
-
-// Thanks http://stackoverflow.com/questions/1567327/using-jquery-to-get-elements-position-relative-to-viewport!
-dom.getPageScroll = function(win) {
-	var win = win || window,
-		doc = win.document,
-		docEl = doc.documentElement,
-		body = doc.body
-	
-	return {
-		top:  win.pageYOffset || (docEl && docEl.scrollTop) || body.scrollTop,
-		left: win.pageXOffset || (docEl && docEl.scrollLeft) || body.scrollLeft
-	}
-}
-
 // dom offset code adopted from jQuery JavaScript Library v1.3.2
 /*!
  * jQuery JavaScript Library v1.3.2
@@ -35,7 +7,7 @@ dom.getPageScroll = function(win) {
  * Dual licensed under the MIT and GPL licenses.
  * http://docs.jquery.com/License
  */
-dom.getOffset = function(elem, win) {
+module.exports = function getOffset(elem, win) {
 	win = win || window;
 
 	if (elem.getBoundingClientRect) {
@@ -115,4 +87,3 @@ dom.getOffset = function(elem, win) {
 		return { y: top, x: left, w: width, h: height };
 	}
 }
-// end jQuery positioning code
