@@ -18,7 +18,7 @@ module.exports = function getOffset(elem, win) {
 			scroll = getWindowScroll(win),
 			top  = box.top  + scroll.y - clientTop,
 			left = box.left + scroll.x - clientLeft;
-		return { y: top, x: left, w: box.right - box.left, h: box.bottom - box.top };
+		return { top:top, left:left, width:box.right - box.left, height:box.bottom - box.top };
 
 	} else {
 		var offset = arguments.callee.offset;
@@ -86,6 +86,6 @@ module.exports = function getOffset(elem, win) {
 			left += Math.max(docElem.scrollLeft, body.scrollLeft);
 		}
 
-		return { y: top, x: left, w: width, h: height };
+		return { top:top, left:left, width:width, height:height };
 	}
 }

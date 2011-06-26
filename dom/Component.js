@@ -1,7 +1,8 @@
 var Class = require('../Class'),
 	Publisher = require('../Publisher'),
 	create = require('./create'),
-	style = require('./style')
+	style = require('./style'),
+	getOffset = require('./getOffset')
 
 module.exports = Class(Publisher, function() {
 
@@ -20,4 +21,5 @@ module.exports = Class(Publisher, function() {
 	this.create = function(tag, properties) { return create(tag, properties, this._doc) }
 	this.append = function(element) { return this._el.appendChild(element) }
 	this.appendTo = function(element) { return element.appendChild(this._el) }
+	this.getOffset = function() { return getOffset(this._el) }
 })
