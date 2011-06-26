@@ -1,7 +1,7 @@
 var unique = require('../unique'),
 	curry = require('../curry'),
 	client = require('../client'),
-	getPageScroll = require('./getPageScroll')
+	getWindowScroll = require('./getWindowScroll')
 
 module.exports = function on(element, eventName, handler) {
 	var uniqueID = module.exports.stampElement(element),
@@ -95,7 +95,7 @@ module.exports._normalizeEvent = function(eventName, e) {
 		eventObj.x = e.pageX
 		eventObj.y = e.pageY
 	} else if (typeof e.clientX == 'number') {
-		var scroll = getPageScroll(window)
+		var scroll = getWindowScroll(window)
 		eventObj.x = e.clientX + scroll.left
 		eventObj.y = e.clientY + scroll.top
 	}

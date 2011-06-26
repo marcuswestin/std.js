@@ -1,8 +1,11 @@
 intended v0.1.24
 + implement cookie.get
-+ move functions from dom.js into dom/getOffset.js, dom/getPageScroll.js and dom/getDocumentHeight.js
++ move functions from dom.js into dom/getOffset.js, dom/getWindowScroll.js and dom/getDocumentHeight.js
 + implement dom.on
 + implement dom.off
++ implement dom.create
++ implement dom.style
++ implement dom.Component
 
 v0.1.23
 + rename class _init to init

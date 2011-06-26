@@ -1,3 +1,5 @@
+var getWindowScroll = require('./getWindowScroll')
+
 // dom offset code adopted from jQuery JavaScript Library v1.3.2
 /*!
  * jQuery JavaScript Library v1.3.2
@@ -13,7 +15,7 @@ module.exports = function getOffset(elem, win) {
 	if (elem.getBoundingClientRect) {
 		var box = elem.getBoundingClientRect(), doc = elem.ownerDocument, body = doc.body, docElem = doc.documentElement,
 			clientTop = docElem.clientTop || body.clientTop || 0, clientLeft = docElem.clientLeft || body.clientLeft || 0,
-			scroll = dom.getPageScroll(win),
+			scroll = getWindowScroll(win),
 			top  = box.top  + scroll.y - clientTop,
 			left = box.left + scroll.x - clientLeft;
 		return { y: top, x: left, w: box.right - box.left, h: box.bottom - box.top };

@@ -1,0 +1,23 @@
+var Class = require('../Class'),
+	Publisher = require('../Publisher'),
+	create = require('./create'),
+	style = require('./style')
+
+module.exports = Class(Publisher, function() {
+
+	this.init = function() {
+		Publisher.prototype.init.apply(this)
+	}
+
+	this.render = function(win) {
+		this._win = win
+		this._doc = this._win.document
+		this._el = create('div', null, this._doc)
+		this.createContent()
+		return this
+	}
+	
+	this.create = function(tag, properties) { return create(tag, properties, this._doc) }
+	this.append = function(element) { return this._el.appendChild(element) }
+	this.appendTo = function(element) { return element.appendChild(this._el) }
+})

@@ -1,6 +1,14 @@
 module.exports = {
+	create: require('./create'),
+	style: require('./style'),
+
 	on: require('./on'),
+	off: require('./off'),
+
 	getOffset: require('./getOffset'),
 	getDocumentHeight: require('./getDocumentHeight'),
-	getPageScroll: require('./getPageScroll')
+	getWindowScroll: require('./getWindowScroll'),
+	getWindowSize: require('./getWindowSize'),
+	
+	Component: require('./Component')
 }
