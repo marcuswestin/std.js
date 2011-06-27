@@ -6,6 +6,8 @@ intended v0.1.24
 + implement dom.create
 + implement dom.style
 + implement dom.Component
++ improve dom.style
++ implement Animation
 
 v0.1.23
 + rename class _init to init
