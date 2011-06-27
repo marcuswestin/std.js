@@ -8,6 +8,7 @@ intended v0.1.24
 + implement dom.Component
 + improve dom.style
 + implement Animation
++ add json, from JSON2 https://github.com/douglascrockford/JSON-js
 
 v0.1.23
 + rename class _init to init
