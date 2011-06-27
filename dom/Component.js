@@ -6,14 +6,16 @@ var Class = require('../Class'),
 
 module.exports = Class(Publisher, function() {
 
+	this._tag = 'div'
+	
 	this.init = function() {
 		Publisher.prototype.init.apply(this)
 	}
 
-	this.render = function(win) {
+	this.render = function(win, el) {
 		this._win = win
 		this._doc = this._win.document
-		this._el = create('div', null, this._doc)
+		this._el = el || create(this._tag, null, this._doc)
 		this.createContent()
 		return this
 	}
