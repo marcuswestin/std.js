@@ -1,26 +1,30 @@
 var curry = require('./curry'),
-	map = require('./map')
+	map = require('./map'),
+	each = require('./each'),
+	json = require('./json')
 
 module.exports = {
 	request: request,
 	get: curry(request, 'get'),
 	post: curry(request, 'post'),
-	jsonGet: curry(json, 'get'),
-	jsonPost: curry(json, 'post')
+	jsonGet: curry(sendJSON, 'get'),
+	jsonPost: curry(sendJSON, 'post')
 }
 
 var XHR = window.XMLHttpRequest || function() { return new ActiveXObject("Msxml2.XMLHTTP"); }
 
-function request(method, url, params, callback, opts) {
+function request(method, url, params, callback, headers, opts) {
 	var xhr = new XHR()
 	method = method.toUpperCase()
+	headers = headers || {}
 	opts = opts || {}
 	xhr.onreadystatechange = function() {
 		var err, result
 		try {
 			if (xhr.readyState != 4) { return }
 			if (xhr.status != 200) { return callback(new Error(xhr.status)) }
-			result = (opts.json ? JSON.parse(xhr.responseText) : xhr.responseText)
+			result = (opts.json ? json.parse(xhr.responseText) : xhr.responseText)
+			if (xhr.getResponseHeader('Content-Type') == 'application/json') { result = json.parse(result) }
 		} catch(e) {
 			err = e
 		}
@@ -32,7 +36,7 @@ function request(method, url, params, callback, opts) {
 	var data = null,
 		encode = (opts.encode !== false),
 		queryArr = map(params, function(value, key) {
-			return (encode ? encodeURIComponent(key) : key) + '=' + (encode ? encodeURIComponent(JSON.stringify(value)) : value) })
+			return (encode ? encodeURIComponent(key) : key) + '=' + (encode ? encodeURIComponent(json.stringify(value)) : value) })
 	if (method == 'GET') {
 		if (url.indexOf('?') == -1) { url = url + '?' }
 		url += queryArr.join('&')
@@ -41,15 +45,16 @@ function request(method, url, params, callback, opts) {
 	}
 	xhr.open(method, url, true)
 	if (method == 'POST') {
-		xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		xhr.setRequestHeader("Content-length", data.length);
-		xhr.setRequestHeader("Connection", "close");
+    if (!headers['Content-Type']) { headers['Content-Type'] = "application/x-www-form-urlencoded" }
+		if (!headers['Content-length']) { headers['Content-length'] = data.length }
+		if (!headers['Connection']) { headers['Connection'] = 'close' }
+    each(headers, function(val, key) { xhr.setRequestHeader(key, val) })
 	}
 	xhr.send(data)
 }
 
-function json(method, url, params, callback) {
-	return request(method, url, params, callback, { json:true })
+function sendJSON(method, url, params, callback) {
+	return request(method, url, params, callback, { 'Content-Type':'application/json' }, { json:true })
 }
 
 function _abortXHR(xhr) {
