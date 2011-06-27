@@ -1,5 +1,5 @@
 intended v0.1.24
-+ implement cookie.get
++ implement cookie
 + move functions from dom.js into dom/getOffset.js, dom/getWindowScroll.js and dom/getDocumentHeight.js
 + implement dom.on
 + implement dom.off
