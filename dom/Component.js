@@ -22,6 +22,8 @@ module.exports = Class(Publisher, function() {
 	
 	this.create = function(tag, properties) { return create(tag, properties, this._doc) }
 	this.append = function(element) { return this._el.appendChild(element) }
-	this.appendTo = function(element) { return element.appendChild(this._el) }
 	this.getOffset = function() { return getOffset(this._el) }
+
+	this.appendTo = function(element) { element.appendChild(this._el); return this }
+	this.style = function(styles) { style(this._el, styles); return this }
 })
