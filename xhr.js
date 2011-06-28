@@ -33,22 +33,22 @@ function request(method, url, params, callback, headers, opts) {
 			callback(err, result)
 		}
 	}
-	var data = null,
-		encode = (opts.encode !== false),
-		queryArr = map(params, function(value, key) {
-			return (encode ? encodeURIComponent(key) : key) + '=' + (encode ? encodeURIComponent(json.stringify(value)) : value) })
+
+	var data = null
+
 	if (method == 'GET') {
-		if (url.indexOf('?') == -1) { url = url + '?' }
-		url += queryArr.join('&')
+		var encode = (opts.encode !== false),
+		queryArr = map(params, function(value, key) { return (encode ? encodeURIComponent(key) : key) + '=' + (encode ? encodeURIComponent(value) : value) })
+			url += (url.indexOf('?') == -1 && queryArr.length ? '?' : '') + queryArr.join('&')
 	} else if (method == 'POST') {
-		data = queryArr.join('&')
+		data = json.stringify(params)
 	}
 	xhr.open(method, url, true)
 	if (method == 'POST') {
-    if (!headers['Content-Type']) { headers['Content-Type'] = "application/x-www-form-urlencoded" }
+		if (!headers['Content-Type']) { headers['Content-Type'] = "application/x-www-form-urlencoded" }
 		if (!headers['Content-length']) { headers['Content-length'] = data.length }
 		if (!headers['Connection']) { headers['Connection'] = 'close' }
-    each(headers, function(val, key) { xhr.setRequestHeader(key, val) })
+		each(headers, function(val, key) { xhr.setRequestHeader(key, val) })
 	}
 	xhr.send(data)
 }
