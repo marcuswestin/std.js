@@ -10,6 +10,7 @@ intended v0.1.24
 + implement Animation
 + add json, from JSON2 https://github.com/douglascrockford/JSON-js
 + xhr improvements
++ implement url
 
 v0.1.23
 + rename class _init to init
