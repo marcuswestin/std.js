@@ -3,11 +3,8 @@ var each = require('../each'),
 
 module.exports = function create(tag, properties, doc) {
 	var element = (doc || document).createElement(tag)
-  each(properties, function(val, key) {
-    if (key == 'class') { key = 'className' }
-    else if (key == 'html') { key = 'innerHTML' }
-    else if (key == 'style') { style(element, val); return }
-    element[key] = val
-  })
+  if (properties.html) { element.innerHTML = properties.html; delete properties.html }
+  if (properties.style) { style(element, properties.style); delete properties.style }
+  each(properties, function(val, key) { element[key] = val })
 	return element
 }
