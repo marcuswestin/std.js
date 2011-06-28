@@ -26,10 +26,10 @@ var URL = Class(function() {
       this.host ? '//' + this.host : '',
       this.pathname,
       this.search ? '?' + this.search : '',
-      this.hash ? '#' + this.hash
+      this.hash ? '#' + this.hash : ''
     ].join('')
   }
   
 })
 
-module.exports = function(url) { return new URL(url) }
+module.exports = function url(url) { return new URL(url) }
