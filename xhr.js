@@ -46,8 +46,6 @@ function request(method, url, params, callback, headers, opts) {
 	xhr.open(method, url, true)
 	if (method == 'POST') {
 		if (!headers['Content-Type']) { headers['Content-Type'] = "application/x-www-form-urlencoded" }
-		if (!headers['Content-length']) { headers['Content-length'] = data.length }
-		if (!headers['Connection']) { headers['Connection'] = 'close' }
 		each(headers, function(val, key) { xhr.setRequestHeader(key, val) })
 	}
 	xhr.send(data)
