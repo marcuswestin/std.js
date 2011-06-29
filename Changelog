@@ -12,6 +12,7 @@ intended v0.1.24
 + xhr improvements
 + implement url
 + implement trim
++ implement dom.NODES
 
 v0.1.23
 + rename class _init to init
