@@ -30,6 +30,12 @@ var URL = Class(function() {
     ].join('')
   }
   
+  this.getTopLevelDomain = function() {
+    if (!this.host) { return '' }
+    var parts = this.host.split('.')
+		return parts.slice(parts.length - 2).join('.')
+  }
+  
 })
 
 module.exports = function url(url) { return new URL(url) }
