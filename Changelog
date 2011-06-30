@@ -1,18 +1,11 @@
 intended v0.1.24
 + implement cookie
-+ move functions from dom.js into dom/getOffset.js, dom/getWindowScroll.js and dom/getDocumentHeight.js
-+ implement dom.on
-+ implement dom.off
-+ implement dom.create
-+ implement dom.style
-+ implement dom.Component
-+ improve dom.style
++ move dom/* into ui library ui.js
 + implement Animation
 + add json, from JSON2 https://github.com/douglascrockford/JSON-js
 + xhr improvements
 + implement url
 + implement trim
-+ implement dom.NODES
 + implement isArguments
 + use native isArray if available
 + add @kaleb to contributors
