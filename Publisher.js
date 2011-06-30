@@ -4,11 +4,11 @@ var Class = require('./Class'),
 
 module.exports = Class(function() {
 
-	this._init = function() {
+	this.init = function() {
 		this._subscribers = {}
 	}
 	
-	this.on = function(signal, fn) {
+	this.subscribe = function(signal, fn) {
 		var subscribers = this._subscribers[signal]
 		if (!subscribers) { subscribers = this._subscribers[signal] = [] }
 		subscribers.push(fn)

@@ -1,6 +1,32 @@
-intended v0.1.23
-+ Use native isArray if available
-+ Add @kaleb to contributors
+intended v0.1.24
++ implement cookie
++ move functions from dom.js into dom/getOffset.js, dom/getWindowScroll.js and dom/getDocumentHeight.js
++ implement dom.on
++ implement dom.off
++ implement dom.create
++ implement dom.style
++ implement dom.Component
++ improve dom.style
++ implement Animation
++ add json, from JSON2 https://github.com/douglascrockford/JSON-js
++ xhr improvements
++ implement url
++ implement trim
++ implement dom.NODES
++ implement isArguments
++ use native isArray if available
++ add @kaleb to contributors
+
+v0.1.23
++ rename class _init to init
++ add support for mixins
++ implement Promise
++ implement invokeWith
++ implement recall
++ implement Publisher mixin
++ implement dom
++ implement client
++ implement popup
 
 v0.1.22
 + implement ui/Component#_off
@@ -86,7 +112,7 @@ v0.1.4
 + implement extend
 
 v0.1.3
-+ call class initializer functions _init rather than _initialize
++ call class initializer functions _init rather than initialize
 
 v0.1.2
 + implement Class

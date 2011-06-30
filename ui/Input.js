@@ -12,8 +12,8 @@ module.exports = Class(UIComponent, function(supr) {
 	this._elTag = 'input'
 	this._elType = 'text'
 
-	this._init = function(opts) {
-		supr(this, '_init', arguments)
+	this.init = function(opts) {
+		supr(this, 'init', arguments)
 		opts = extend(opts, defaults)
 		this._defaultValue = opts.defaultValue
 	}

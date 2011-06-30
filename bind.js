@@ -20,7 +20,7 @@
 
 	var Toolbar = Class(function() {
 		
-		this._init = function() {
+		this.init = function() {
 			this._buttonWasClicked = false
 		}
 		

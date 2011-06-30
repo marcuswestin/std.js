@@ -15,8 +15,8 @@ module.exports = Class(Publisher, function(supr) {
 	var defaults = {
 		'class': null
 	}
-	this._init = function(opts) {
-		supr(this, '_init', arguments)
+	this.init = function(opts) {
+		supr(this, 'init', arguments)
 		opts = extend(opts, defaults)
 		if (typeof opts['class'] == 'string') { this._class = opts['class'] }
 		this._events = {}

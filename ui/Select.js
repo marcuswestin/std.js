@@ -9,7 +9,7 @@ module.exports = Class(Component, function() {
 		values: []
 	}
 
-	this._init = function(opts) {
+	this.init = function(opts) {
 		opts = extend(opts, defaults)
 		this._values = [opts.title].concat(opts.values)
 	}

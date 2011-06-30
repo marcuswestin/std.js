@@ -1,44 +1,60 @@
-/*
-	Based off of implementation in https://github.com/mcarter/js.io/blob/master/packages/base.js by Martin Hunt @mgh
+/* Example usage:
 
-	Example usage:
+	var UIComponent = Class(function() {
+		this.init = function() { ... }
+		this.create = function() { ... this.createDOM() ... }
+	})
 
-	var Person = Class(function() {
-
-		this._init = function(name) {
-			this._name = name
+	var PublisherMixin = {
+		init: function(){ ... },
+		publish_: function() { ... }
+	}
+  
+	var Button = Class(UIComponent, PublisherMixin, function(supr) {
+		this.init = function(opts) {
+			// call UIComponents init method, with the passed in arguments
+			supr(this, 'init', arguments) // or, UIComponent.constructor.prototype.init.apply(this, arguments)
+			this.color_ = opts && opts.color
 		}
 
-		this.getName = function() {
-			return this._name
-		}
-		
-		this.greet = function(name) {
-			return 'Hi ' + name + '! My name is ' + this._name
+		// createDOM overwrites abstract method from parent class UIComponent
+		this.createDOM = function() {
+			this.getElement().onclick = bind(this, function(e) {
+				// this.publish_ is a method added to Button by the Publisher mixin
+				this.publish_('Click', e)
+			})
 		}
 	})
 
-	var CoolKid = Class(Person, function(supr) {
-		
-		this.greet = function() {
-			return supr(this, 'greet', arguments).replace(/^Hi /, 'Sup').replace('My name is', "I'm")
-		}
-
-	})
-
-	var john = new Person("John"),
-		coolKid = new CoolKid("mr Coolio")
-	
-	john.greet(coolKid)
-	coolKid.greet(john)
 */
+module.exports = function Class(/* optParent, optMixin1, optMixin2, ..., proto */) {
+	var args = arguments,
+		numOptArgs = args.length - 1,
+		mixins = []
 
-module.exports = function Class(parent, proto) {
-	if(!proto) { proto = parent }
-	proto.prototype = parent.prototype
+	// the prototype function is always the last argument
+	var proto = args[numOptArgs]
 
-	var cls = function() { if(this._init) { this._init.apply(this, arguments) }}
-	cls.prototype = new proto(function(context, method, args) {
+	// if there's more than one argument, then the first argument is the parent class
+	if (numOptArgs) {
+		var parent = args[0]
+		if (parent) { proto.prototype = parent.prototype }
+	}
+
+	for (var i=1; i < numOptArgs; i++) { mixins.push(arguments[i]) }
+
+	// cls is the actual class function. Classes may implement this.init = function(){ ... },
+	// which gets called upon instantiation
+	var cls = function() {
+		if(this.init) { this.init.apply(this, arguments) }
+		for (var i=0, mixin; mixin = mixins[i]; i++) {
+			if (mixin.init) { mixin.init.apply(this) }
+		}
+	}
+
+	// the proto function gets called with the supr function as an argument. supr climbs the
+	// inheritence chain, looking for the named method
+	cls.prototype = new proto(function supr(context, method, args) {
 		var target = parent
 		while(target = target.prototype) {
 			if(target[method]) {
@@ -47,6 +63,17 @@ module.exports = function Class(parent, proto) {
 		}
 		throw new Error('supr: parent method ' + method + ' does not exist')
 	})
+
+	// add all mixins' properties to the class' prototype object
+	for (var i=0, mixin; mixin = mixins[i]; i++) {
+		for (var propertyName in mixin) {
+			if (!mixin.hasOwnProperty(propertyName) || propertyName == 'init') { continue }
+			if (cls.prototype.hasOwnProperty(propertyName)) {
+				throw new Error('Mixin property "'+propertyName+'" already exists on class')
+			}
+			cls.prototype[propertyName] = mixin[propertyName]
+		}
+	}
 
 	cls.prototype.constructor = cls
 	return cls
