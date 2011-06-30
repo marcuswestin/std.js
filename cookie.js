@@ -9,8 +9,8 @@ module.exports.get = function(name) {
 }
 
 module.exports.set = function(name, value, duration) {
-	if (typeof duration != 'number') { duration = (365 * 24 * 60 * 60 * 1000) } // one year
-	var date = (duration < 0 ? null : new Date(new Date().getTime() + duration)),
+	if (duration === undefined) { duration = (365 * 24 * 60 * 60 * 1000) } // one year
+	var date = (duration instanceof Date ? duration : (duration < 0 ? null : new Date(new Date().getTime() + duration))),
 		expires = date ? "expires=" + date.toGMTString() + '; ' : '',
 		cookieName = name + '=' + encodeURIComponent(value) + '; ',
 		domain = 'domain='+document.domain+'; ',
