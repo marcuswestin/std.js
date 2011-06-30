@@ -1,3 +1,6 @@
+intended v0.1.25
++ fix cookie.remove
+
 v0.1.24
 + implement cookie
 + move dom/* into ui library ui.js
