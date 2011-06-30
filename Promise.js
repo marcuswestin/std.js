@@ -9,7 +9,6 @@ module.exports = Class(function() {
   }
   
   this.add = function(callback) {
-    if (!callback || !callback.apply) debugger
     if (this.fulfillment_) { callback.apply(this, this.fulfillment_) }
     else { this.dependants_.push(callback) }
   }
