@@ -13,6 +13,7 @@ intended v0.1.24
 + implement url
 + implement trim
 + implement dom.NODES
++ implement isArguments
 
 v0.1.23
 + rename class _init to init

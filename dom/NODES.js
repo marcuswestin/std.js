@@ -1,7 +1,8 @@
-var Class = require('std/Class'),
-  each = require('std/each'),
-  slice = require('std/slice'),
-  style = require('std/dom/style')
+var Class = require('std/Class')
+  , each = require('std/each')
+  , slice = require('std/slice')
+  , style = require('std/dom/style')
+  , isArguments = require('std/isArguments')
 
 var NODES = module.exports
 
@@ -13,60 +14,85 @@ NODES.NODE = Class(function() {
     this._args = args
   }
 
-  this.toDOM = function(doc) {
+  this.render = function(doc) {
     if (this._doc == doc) { return this._node }
-    this._doc = doc
-    var node = this._node = doc.createElement(this._tag),
-      args = this._args
+    if (this._node) { this.unrender() }
 
+    this._doc = doc
+    this._node = doc.createElement(this._tag)
+
+    var args = this._args
+      , node = this._node
     if (typeof args[0] == 'string') {
       node.className = args[0]
-      this._processArgs(node, doc, args, 1)
+      this._processArgs(args, 1)
     } else {
-      this._processArgs(node, doc, args, 0)
+      this._processArgs(args, 0)
     }
-    
-    return node
+
+    return this._node
   }
-  
-  this._processArgs = function(node, doc, args, index) {
+
+  this.getDocument = function() { return this._doc }
+  this.getNode = function() { return this._node }
+  this.style = function(styles) { style(this._node, styles) }
+  this.opacity = function(opacity) { style.opacity(this._node, opacity) }
+
+  this._processArgs = function(args, index) {
     while (index < args.length) {
-      var arg = args[index++]
-      if (!arg) { continue }
-      if (arg instanceof NODES.NODE) {
-        node.appendChild(arg.toDOM(doc))
-      } else if (typeof arg == 'string') {
-        node.appendChild(doc.createTextNode(arg))
-      // } else if (isArray(arg)) {
-      } else {
-        each(arg, function(val, key) {
-          if (key == 'style') { style(node, val) }
-          else { node[key] = val }
-        })
-      }
+      this._processArg(args[index++])
     }
   }
 
-  this.appendTo = function(el) {
-    return el.appendChild(this.toDOM(el.ownerDocument))
+  this._processArg = function(arg) {
+    if (!arg) { return }
+    var node = this._node
+      , doc = this._doc
+    if (typeof arg.render == 'function') {
+      node.appendChild(arg.render(doc))
+    } else if (typeof arg == 'string') {
+      node.appendChild(doc.createTextNode(arg))
+    } else if (arg instanceof HTMLElement) {
+      node.appendChild(arg)
+    } else {
+      each(arg, function(val, key) {
+        if (key == 'style') { style(node, val) }
+        else { node[key] = val }
+      })
+    }
   }
 
+  this.append = function() {
+    if (this._node) {
+      this._processArgs(arguments, 0)
+    } else {
+      if (isArguments(this._args)) { this._args = slice(this._args) } // We delay the call to slice, since it may not be neccesary
+      this._args = this._args.concat(slice(arguments))
+    }
+    return this
+  }
+
+  this.appendTo = function(node) {
+    var el = (node.getNode ? node.getNode() : node)
+    el.appendChild(this.render(node.ownerDocument || node.getDocument()))
+    return this
+  }
 })
 
 NODES.TEXT = Class(NODES.NODE, function() {
-  this.toDOM = function(doc) {
-    var args = this._args,
-      text = args.length > 1 ? slice(args).join(' ') : args[0]
+  this.render = function(doc) {
+    var args = this._args
+      , text = args.length > 1 ? slice(args).join(' ') : args[0]
     return doc.createTextNode(text)
   }
 })
 
 NODES.FRAGMENT = Class(NODES.NODE, function() {
-  this.toDOM = function(doc) {
-    var fragment = doc.createDocumentFragment()
-    this._processArgs(fragment, doc, this._args, 0)
-    return fragment
-  } 
+  this.render = function(doc) {
+    this._node = doc.createDocumentFragment()
+    this._processArgs(this._args, 0)
+    return this._node
+  }
 })
 
 NODES.DIV = Class(NODES.NODE, function() { this._tag = 'div' })

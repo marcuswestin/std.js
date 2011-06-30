@@ -12,11 +12,10 @@ module.exports = Class(Publisher, function() {
 		Publisher.prototype.init.apply(this)
 	}
 
-	this.render = function(win, el) {
-		this._win = win
-		this._doc = this._win.document
-		this._el = el || create(this._tag, null, this._doc)
-		this.createContent()
+	this.render = function(doc) {
+		this._doc = doc
+		this._el = create(this._tag, null, this._doc)
+		this.renderContent()
 		return this
 	}
 	
