@@ -1,13 +1,13 @@
-var Class = require('../Class'),
-	Publisher = require('../Publisher'),
-	create = require('./create'),
-	style = require('./style'),
-	getOffset = require('./getOffset')
+var Class = require('../Class')
+	, Publisher = require('../Publisher')
+	, create = require('./create')
+	, style = require('./style')
+	, getOffset = require('./getOffset')
 
 module.exports = Class(Publisher, function() {
 
 	this._tag = 'div'
-	
+
 	this.init = function() {
 		Publisher.prototype.init.apply(this)
 	}
@@ -18,7 +18,10 @@ module.exports = Class(Publisher, function() {
 		this.renderContent()
 		return this
 	}
-	
+
+	this.getElement = function() { return this._el }
+	this.getDocument = function() { return this._doc }
+
 	this.create = function(tag, properties) { return create(tag, properties, this._doc) }
 	this.append = function(element) { return this._el.appendChild(element) }
 	this.getOffset = function() { return getOffset(this._el) }
