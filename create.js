@@ -11,5 +11,5 @@ module.exports = function create(obj) {
       return new F()
     }
   }
-  return module.exports.create(obj)
+  return module.exports(obj)
 }
