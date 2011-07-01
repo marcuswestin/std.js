@@ -10,3 +10,4 @@ Acknowledgements
 - dom.getOffset is lifted from jQuery with some modification
 - dom.getWindowScroll is modified from http://stackoverflow.com/questions/1567327/using-jquery-to-get-elements-position-relative-to-viewport, which is based on a quirksmode.org snippet
 - json.js taken from https://github.com/douglascrockford/JSON-js
+- trim taken from http://code.google.com/p/closure-library/source/browse/trunk/closure/goog/string/string.js?r=2
