@@ -30,6 +30,8 @@ var URL = Class(function() {
     ].join('')
   }
   
+  this.toJSON = this.toString
+  
   this.getTopLevelDomain = function() {
     if (!this.host) { return '' }
     var parts = this.host.split('.')
