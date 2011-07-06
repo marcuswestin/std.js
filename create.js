@@ -7,7 +7,7 @@ module.exports = function create(obj) {
   } else {
     module.exports = function create(obj) {
       function F() {}
-      F.prototype = o
+      F.prototype = obj
       return new F()
     }
   }
