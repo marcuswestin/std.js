@@ -10,7 +10,7 @@ module.exports = {
 		}
 		client.isIE = isClient('MSIE')
 		client.isFirefox = isClient('Firefox')
-		client.isWebKit = isClient('WebKit')
+		client.isWebkit = client.isWebKit = isClient('WebKit')
 		client.isChrome = isClient('Chrome')
 		client.isSafari = !client.isChrome && isClient('Safari')
 	},
