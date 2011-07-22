@@ -2,6 +2,7 @@ intended v0.1.25
 + fix cookie.remove
 + implement create
 + implement arrayToObject
++ implement defineGetter
 
 v0.1.24
 + implement cookie
