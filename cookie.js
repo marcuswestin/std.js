@@ -4,8 +4,9 @@ module.exports.get = function(name) {
 		name +
 		'=([^;]*)') // the value of the cookie, matched up until a ";" or the end of the string
 	
-	var match = document.cookie.match(regex)
-	return match && match[3]
+	var match = document.cookie.match(regex),
+		value = match && match[3]
+	return value && decodeURIComponent(value)
 }
 
 module.exports.set = function(name, value, duration) {
