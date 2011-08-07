@@ -1,4 +1,4 @@
-intended v0.1.25
+v0.1.25
 + fix cookie.remove
 + implement create
 + implement arrayToObject
