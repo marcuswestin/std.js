@@ -15,6 +15,7 @@ module.exports = Class(function() {
 		this._duration = opts.duration
 		this._interval = opts.interval
 		this._tween = opts.tween
+		this._onDone = opts.onDone
 	}
 	
 	this.start = function(reverse) {
@@ -36,7 +37,11 @@ module.exports = Class(function() {
 	this._onInterval = function() {
 		var deltaT = new Date().getTime() - this._startT,
 		  duration = this._duration
-		if (deltaT >= duration) { return this.stop() }
+		if (deltaT >= duration) {
+		  this.stop()
+		  if (this._onDone) { this._onDone() }
+		  return
+		}
 		var delta = deltaT / duration
 		if (this._reverse) { delta = 1 - delta }
 		this._animationFunction(this._tween(delta))
