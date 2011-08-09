@@ -29,7 +29,6 @@ module.exports = Class(function() {
 	this.stop = function() {
     this._playing = false
 		clearInterval(this._intervalID)
-		this._animationFunction(this._tween(this._reverse ? 0 : 1))
 	}
   
   this.isGoing = function() { return this._playing }
@@ -39,6 +38,7 @@ module.exports = Class(function() {
 		  duration = this._duration
 		if (deltaT >= duration) {
 		  this.stop()
+		  this._animationFunction(this._tween(this._reverse ? 0 : 1))
 		  if (this._onDone) { this._onDone() }
 		  return
 		}
