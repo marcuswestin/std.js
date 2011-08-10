@@ -14,6 +14,9 @@ module.exports = {
 		client.isWebkit = client.isWebKit = isClient('WebKit')
 		client.isChrome = isClient('Chrome')
 		client.isSafari = !client.isChrome && isClient('Safari')
+		client.isIPhone = isClient('iPhone')
+		client.isIPad = isClient('iPad')
+		client.isIPod = isClient('iPod')
 	},
 
 	isQuirksMode: function(doc) {
