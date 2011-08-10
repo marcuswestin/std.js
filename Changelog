@@ -1,3 +1,6 @@
+v0.1.26
++ add client.name and client.is[IPhone, IPad, IPod]
+
 v0.1.25
 + fix cookie.remove
 + implement create
