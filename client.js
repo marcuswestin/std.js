@@ -6,6 +6,7 @@ module.exports = {
 				index = agent.indexOf(name)
 			if (index < 0) { return false }
 			client.version = parseInt(agent.substr(index + name.length + 1))
+			client.name = name
 			return true
 		}
 		client.isIE = isClient('MSIE')
