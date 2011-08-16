@@ -1,3 +1,6 @@
+intended v0.1.27
++ make client a proper class, and add the beginnins to OS user-agent parsing
+
 v0.1.26
 + add client.name and client.is[IPhone, IPad, IPod]
 
