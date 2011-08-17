@@ -15,6 +15,7 @@ module.exports = Class(function() {
 		this._duration = opts.duration
 		this._interval = opts.interval
 		this._tween = opts.tween
+		this._onDone = opts.onDone
 	}
 	
 	this.start = function(reverse) {
@@ -28,7 +29,6 @@ module.exports = Class(function() {
 	this.stop = function() {
     this._playing = false
 		clearInterval(this._intervalID)
-		this._animationFunction(this._tween(this._reverse ? 0 : 1))
 	}
   
   this.isGoing = function() { return this._playing }
@@ -36,7 +36,12 @@ module.exports = Class(function() {
 	this._onInterval = function() {
 		var deltaT = new Date().getTime() - this._startT,
 		  duration = this._duration
-		if (deltaT >= duration) { return this.stop() }
+		if (deltaT >= duration) {
+		  this.stop()
+		  this._animationFunction(this._tween(this._reverse ? 0 : 1))
+		  if (this._onDone) { this._onDone() }
+		  return
+		}
 		var delta = deltaT / duration
 		if (this._reverse) { delta = 1 - delta }
 		this._animationFunction(this._tween(delta))

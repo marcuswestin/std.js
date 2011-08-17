@@ -32,7 +32,7 @@
 module.exports = function delay(fn, delayBy) {
 	if (typeof delayBy != 'number') { delayBy = 50 }
 	var timeoutName = '__delayTimeout__' + (++module.exports._unique)
-	return function delayed() {
+	var delayedFunction = function delayed() {
 		if (this[timeoutName]) {
 			clearTimeout(this[timeoutName])
 		}
@@ -43,5 +43,9 @@ module.exports = function delay(fn, delayBy) {
 			fn.apply(self, args)
 		}, delayBy)
 	}
+	delayedFunction.cancel = function() {
+	  clearTimeout(this[timeoutName])
+	}
+	return delayedFunction
 }
 module.exports._unique = 0
