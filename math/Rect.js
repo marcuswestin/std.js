@@ -18,8 +18,6 @@ module.exports = Class(function() {
 	}
 	
 	this.containsPoint = function(point) {
-		log(this.x,' < ', point.x, ' && ', point.x, ' < ', this._x2)
-		log(this.y,' < ', point.y,' && ',point.y,' < ',this._y2)
 		return this.x < point.x && point.x < this._x2
 			&& this.y < point.y && point.y < this._y2
 	}
