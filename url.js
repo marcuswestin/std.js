@@ -7,6 +7,7 @@ var URL = Class(function() {
 		'^', // start at the beginning of the string
 		'((\\w+:)?//)?', // match a possible protocol, like http://, ftp://, or // for a relative url
 		'(\\w[\\w\\.]+)?', // match a possible domain
+		'(:\\d+)?', // match a possible port
 		'(\\/[^\\?#]+)?', // match a possible path
 		'(\\?[^#]+)?', // match possible GET parameters
 		'(#.*)?' // match the rest of the URL as the hash
@@ -16,9 +17,10 @@ var URL = Class(function() {
 		var match = (url || '').toString().match(this._extractionRegex) || []
 		this.protocol = match[2] || ''
 		this.host = match[3] || ''
-		this.pathname = match[4] || ''
-		this.search = (match[5]||'').substr(1)
-		this.hash = (match[6]||'').substr(1)
+		this.port = match[4] || ''
+		this.pathname = match[5] || ''
+		this.search = (match[6]||'').substr(1)
+		this.hash = (match[7]||'').substr(1)
 	}
 
 	this.toString = function() {
