@@ -55,7 +55,6 @@ var URL = Class(function() {
 	this.addToHash = function(key, val) { this.getHashParams()[key] = val; return this }
 	this.removeFromSearch = function(key) { delete this.getSearchParams()[key]; return this }
 	this.removeFromHash = function(key) { delete this.getHashParams()[key]; return this }
-	this.getHash = function() { return }
 	
 	this.getSearch = function() {
 		return (
