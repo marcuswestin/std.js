@@ -70,6 +70,9 @@ var URL = Class(function() {
 			: '')
 	}
 
+	this.getSearchParam = function(key) { return this.getSearchParams()[key] }
+	this.getHashParam = function(key) { return this.getHashParams()[key] }
+
 	this._parseParams = function(paramString) {
 		var parts = this.search.split('&'),
 			params = {}
