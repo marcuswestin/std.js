@@ -80,6 +80,7 @@ var URL = Class(function() {
 			var kvp = parts[i].split('=')
 			params[decodeURIComponent(kvp[0])] = decodeURIComponent(kvp[1])
 		}
+		return params
 	}
 	
 	this._getParamString = function(params) {
