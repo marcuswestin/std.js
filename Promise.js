@@ -1,6 +1,7 @@
 var Class = require('./Class'),
   bind = require('./bind'),
-  invokeWith = require('./invokeWith')
+  invokeWith = require('./invokeWith'),
+  slice = require('./slice')
 
 module.exports = Class(function() {
   this.init = function() {
