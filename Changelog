@@ -1,6 +1,7 @@
 intended v0.1.27
 + make client a proper class, and add the beginnins to OS user-agent parsing
 + improve url.js - enable getting and setting the hash/query params
++ implement merge
 
 v0.1.26
 + add client.name and client.is[IPhone, IPad, IPod]
