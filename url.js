@@ -74,7 +74,7 @@ var URL = Class(function() {
 	this.getHashParam = function(key) { return this.getHashParams()[key] }
 
 	this._parseParams = function(paramString) {
-		var parts = this.search.split('&'),
+		var parts = paramString.split('&'),
 			params = {}
 		for (var i=0; i<parts.length; i++) {
 			var kvp = parts[i].split('=')
