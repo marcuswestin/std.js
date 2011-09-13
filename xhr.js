@@ -38,7 +38,7 @@ function request(method, url, params, callback, headers, opts) {
 
 	if (method == 'GET') {
 		var encode = (opts.encode !== false),
-		queryArr = map(params, function(value, key) { return (encode ? encodeURIComponent(key) : key) + '=' + (encode ? encodeURIComponent(value) : value) })
+			queryArr = map(params, function(value, key) { return (encode ? encodeURIComponent(key) : key) + '=' + (encode ? encodeURIComponent(value) : value) })
 			url += (url.indexOf('?') == -1 && queryArr.length ? '?' : '') + queryArr.join('&')
 	} else if (method == 'POST') {
 		data = json.stringify(params)
