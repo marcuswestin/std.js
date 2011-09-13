@@ -5,18 +5,18 @@ var Class = require('./Class'),
 
 module.exports = Class(function() {
 	this.init = function() {
-		this.dependants_ = []
-		this.fulfillment_ = null
+		this._dependants = []
+		this._fulfillment = null
 	}
 
 	this.add = function(callback) {
-		if (this.fulfillment_) { callback.apply(this, this.fulfillment_) }
-		else { this.dependants_.push(callback) }
+		if (this._fulfillment) { callback.apply(this, this._fulfillment) }
+		else { this._dependants.push(callback) }
 	}
 
 	this.fulfill = function(/* arg1, arg2, ...*/) {
-		if (this.fulfillment_) { throw new Error('Promise fulfilled twice') }
-		this.fulfillment_ = slice(arguments)
-		each(this.dependants_, invokeWith.apply(this, this.fulfillment_))
+		if (this._fulfillment) { throw new Error('Promise fulfilled twice') }
+		this._fulfillment = slice(arguments)
+		each(this._dependants, invokeWith.apply(this, this._fulfillment))
 	}
 })
