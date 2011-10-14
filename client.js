@@ -1,5 +1,7 @@
 var Class = require('./Class')
 
+var mobileRegex = /mobile/i;
+
 var Client = Class(function() {
 	
 	this.init = function(userAgent) {
@@ -15,11 +17,17 @@ var Client = Class(function() {
 			|| (this.isSafari = this._isClient('Safari', 'Version'))
 		
 		if (this.isSafari) {
-			(this.isIPhone = this._isClient('iPhone', 'Version', true))
-				|| (this.isIPad = this._isClient('iPad', 'Version', true))
-				|| (this.isIPod = this._isClient('iPod', 'Version', true))
-				|| (this.isAndroid = this._isClient('Android', 'Version', true))
+			(this.isIPhone = this._isClient('iPhone', 'Version'))
+				|| (this.isIPad = this._isClient('iPad', 'Version'))
+				|| (this.isIPod = this._isClient('iPod', 'Version'))
+				|| (this.isAndroid = this._isClient('Android', 'Version'))
 		}
+		
+		if (this.isIPhone || (this.isAndroid && this._userAgent.match(mobileRegex))) {
+			this.isMobile = true
+		}
+		
+		this.isTablet = this.isIPad || (this.isAndroid && !this.isMobile)
 	}
 	
 	this._parseOS = function() {
@@ -35,14 +43,13 @@ var Client = Class(function() {
 		return this.isIE && (!doc.compatMode || doc.compatMode == 'BackCompat')
 	}
 	
-	this._isClient = function(name, versionString, isMobile) {
+	this._isClient = function(name, versionString) {
 		var agent = this._userAgent,
 			index = agent.indexOf(name)
 		if (index < 0) { return false }
 		if (versionString) { index = agent.indexOf(versionString) }
 		this.version = parseFloat(agent.substr(index + (versionString || name).length + 1))
 		this.name = name
-		this.isMobile = isMobile
 		return true
 	}
 	
