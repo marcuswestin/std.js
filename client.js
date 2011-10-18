@@ -28,7 +28,12 @@ var Client = Class(function() {
 		}
 		
 		this.isTablet = this.isIPad || (this.isAndroid && !this.isMobile)
-		this.isTouch = this.isTablet || this.isMobile
+		try {
+			document.createEvent("TouchEvent")
+			this.isTouch = true
+		} catch (e) {
+			this.isTouch = false
+		}
 	}
 	
 	this._parseOS = function() {
