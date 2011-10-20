@@ -22,7 +22,7 @@ function request(method, url, params, callback, headers, opts) {
 		var err, result
 		try {
 			if (xhr.readyState != 4) { return }
-			if (xhr.status != 200) { return callback(new Error(xhr.status)) }
+			if (xhr.status != 200) { return callback(new Error(xhr.response)) }
 			result = (opts.json ? json.parse(xhr.responseText) : xhr.responseText)
 			if (xhr.getResponseHeader('Content-Type') == 'application/json') { result = json.parse(result) }
 		} catch(e) {
