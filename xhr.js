@@ -13,6 +13,15 @@ module.exports = {
 
 var XHR = window.XMLHttpRequest || function() { return new ActiveXObject("Msxml2.XMLHTTP"); }
 
+var onBeforeUnloadFired = false
+function onBeforeUnload() {
+	onBeforeUnloadFired = true
+	setTimeout(function(){ onBeforeUnloadFired = false }, 100)
+}
+
+if (window.addEventListener) { window.addEventListener('beforeunload', onBeforeUnload, false) }
+else { window.attachEvent('onbeforeunload', onBeforeUnload) }
+
 function request(method, url, params, callback, headers, opts) {
 	var xhr = new XHR()
 	method = method.toUpperCase()
@@ -22,6 +31,7 @@ function request(method, url, params, callback, headers, opts) {
 		var err, result
 		try {
 			if (xhr.readyState != 4) { return }
+			if (onBeforeUnloadFired) { return }
 			if (xhr.status != 200) { return callback(new Error(xhr.response)) }
 			result = (opts.json ? json.parse(xhr.responseText) : xhr.responseText)
 			if (xhr.getResponseHeader('Content-Type') == 'application/json') { result = json.parse(result) }
