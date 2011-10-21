@@ -12,6 +12,7 @@ module.exports = function(items, ctx, fn) {
 		}
 	} else {
 		for (var key in items) {
+			if (!items.hasOwnProperty(key)) { continue }
 			fn.call(ctx, items[key], key)
 		}
 	}
