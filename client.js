@@ -23,8 +23,10 @@ var Client = Class(function() {
 				|| (this.isAndroid = this._isClient('Android', 'Version'))
 		}
 		
-		if (this.isIPhone || (this.isAndroid && this._userAgent.match(mobileRegex))) {
-			this.isMobile = true
+		if (this.isIPhone) { this.isMobile = true }
+		if (this.isAndroid) {
+			if (this._userAgent.match(mobileRegex)) { this.isMobile = true }
+			if (this.isFirefox) { this.isMobile = true } // Firefox Android browsers do not seem to have an indication that it's a phone vs a tablet: Mozilla/5.0 (Android; Linux armv7l; rv:7.0.1) Gecko/20110928 Firefox/7.0.1 Fennec/7.0.1
 		}
 		
 		this.isTablet = this.isIPad || (this.isAndroid && !this.isMobile)
