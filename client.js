@@ -14,9 +14,9 @@ var Client = Class(function() {
 		(this.isChrome = this._isClient('Chrome'))
 			|| (this.isFirefox = this._isClient('Firefox'))
 			|| (this.isIE = this._isClient('MSIE'))
+			|| (this.isSkyFire = this._isClient('Skyfire', 'Skyfire')) // Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_5_7; en-us) AppleWebKit/530.17 (KHTML, like Gecko) Version/4.0 Safari/530.17 Skyfire/2.0
 			|| (this.isSafari = this._isClient('Safari', 'Version'))
 			|| (this.isOpera = this._isClient('Opera', 'Version'))
-			|| (this.isSkyFire = this._isClient('Skyfire', 'Version')) // Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_5_7; en-us) AppleWebKit/530.17 (KHTML, like Gecko) Version/4.0 Safari/530.17 Skyfire/2.0
 		
 		this.isAndroid = this._isClient('Android', 'Version')
 		
