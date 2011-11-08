@@ -7,7 +7,6 @@ var Client = Class(function() {
 	this.init = function(userAgent) {
 		this._userAgent = userAgent
 		this._parseBrowser()
-		this._parseOS()
 		this._parseDevice()
 	}
 	
@@ -36,6 +35,9 @@ var Client = Class(function() {
 			|| (this.isIPad = this._is('iPad'))
 			|| (this.isIPod = this._is('iPod')))
 		
+		this.isAndroid = this._isBrowser('Android', 'Version')
+		this.isIOS = (this.isIPhone || this.isIPad || this.isIPod)
+		
 		if (this.isOpera && this._userAgent.match('Opera Mobi')) { this.isMobile = true } // Opera mobile is a proper mobile browser - Opera/9.80 (Android; Opera Mini/6.5.26571/ 26.1069; U; en) Presto/2.8.119 Version/10.54
 		if (this.isSkyfire) { this.isMobile = true }
 		if (this.isIPhone) { this.isMobile = true }
@@ -45,15 +47,6 @@ var Client = Class(function() {
 		}
 		
 		this.isTablet = this.isIPad
-	}
-	
-	this._parseOS = function() {
-		this.isAndroid = this._isBrowser('Android', 'Version')
-		if (this.isSafari) {
-			this.isIOS = (this.isIPhone || this.isIPad || this.isIPod)
-			if (this.isIOS) { this.osVersion = parseFloat(this._userAgent.match(/ OS (\d+_\d+)/)[1].replace('_', '.'), 10) }
-		}
-		return this
 	}
 	
 	this.isQuirksMode = function(doc) {
