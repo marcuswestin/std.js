@@ -83,6 +83,7 @@ url.query = {
 			params = {}
 		for (var i=0; i<parts.length; i++) {
 			var kvp = parts[i].split('=')
+			if (kvp.length != 2) { continue }
 			params[decodeURIComponent(kvp[0])] = decodeURIComponent(kvp[1])
 		}
 		return params
