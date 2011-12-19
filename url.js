@@ -44,12 +44,12 @@ var URL = Class(function() {
 	
 	this.getSearchParams = function() {
 		if (this._searchParams) { return this._searchParams }
-		return this._searchParams = this._parseParams(this.search) || {}
+		return this._searchParams = url.query.parse(this.search) || {}
 	}
 	
 	this.getHashParams = function() {
 		if (this._hashParams) { return this._hashParams }
-		return this._hashParams = this._parseParams(this.hash) || {}
+		return this._hashParams = url.query.parse(this.hash) || {}
 	}
 	
 	this.addToSearch = function(key, val) { this.getSearchParams()[key] = val; return this }
@@ -59,36 +59,38 @@ var URL = Class(function() {
 	
 	this.getSearch = function() {
 		return (
-			this._searchParams ? '?' + this._getParamString(this._searchParams)
+			this._searchParams ? '?' + url.query.string(this._searchParams)
 			: this.search ? '?' + this.search
 			: '')
 	}
 	
 	this.getHash = function() {
 		return (
-			this._hashParams ? '#' + this._getParamString(this._hashParams)
+			this._hashParams ? '#' + url.query.string(this._hashParams)
 			: this.hash ? '?' + this.hash
 			: '')
 	}
 
 	this.getSearchParam = function(key) { return this.getSearchParams()[key] }
 	this.getHashParam = function(key) { return this.getHashParams()[key] }
+})
 
-	this._parseParams = function(paramString) {
+var url = module.exports = function url(url) { return new URL(url) }
+
+url.query = {
+	parse:function(paramString) {
 		var parts = paramString.split('&'),
 			params = {}
 		for (var i=0; i<parts.length; i++) {
 			var kvp = parts[i].split('=')
+			if (kvp.length != 2) { continue }
 			params[decodeURIComponent(kvp[0])] = decodeURIComponent(kvp[1])
 		}
 		return params
-	}
-	
-	this._getParamString = function(params) {
+	},
+	string:function(params) {
 		return map(params, function(val, key) {
 			return encodeURIComponent(key) + '=' + encodeURIComponent(val)
 		}).join('&')
 	}
-})
-
-module.exports = function url(url) { return new URL(url) }
+}
