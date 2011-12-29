@@ -1,5 +1,14 @@
-var map = require('./map')
-
 module.exports = function keys(obj) {
-	return map(obj, function(val, key) { return key })
+	if (Object.keys) {
+		module.exports = function(obj) {
+			return Object.keys(obj)
+		}
+	} else {
+		module.exports = function(obj) {
+			for (var k in obj) {
+				if (obj.hasOwnProperty(k)) { keys.push(k) }
+			}
+		}
+	}
+	return module.exports(obj)
 }
