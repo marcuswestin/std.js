@@ -18,5 +18,6 @@ module.exports = Class(function() {
 		if (this._fulfillment) { throw new Error('Promise fulfilled twice') }
 		this._fulfillment = slice(arguments)
 		each(this._dependants, invokeWith.apply(this, this._fulfillment))
+		delete this._dependants
 	}
 })
