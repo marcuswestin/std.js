@@ -1,0 +1,37 @@
+/* 
+	Block a function from being called by adding and removing any number of blocks.
+	Excellent for waiting on parallel asynchronous operations.
+	A blocked function starts out with exactly one block
+	
+	Example usage:
+
+	http.createServer(function(req, res) {
+		var sendResponse = blockFunction(function() {
+			res.writeHead(204)
+			res.end()
+		})
+		var queries = parseQueries(req.url)
+		for (var i=0; i<queries.length; i++) {
+			sendResponse.addBlock()
+			handleQuery(queries[i]; function() {
+				sendResponse.removeBlock()
+			})
+		}
+		sendResponse.removeBlock()
+	})
+*/
+
+module.exports = function blockFunction(fn) {
+	var numBlocks = 1
+	return {
+		addBlock:function() {
+			numBlocks++
+		},
+		removeBlock:function() {
+			if (!fn) { throw new Error("Block removed after function was unblocked") }
+			if (--numBlocks) { return }
+			fn()
+			delete fn
+		}
+	}
+}
