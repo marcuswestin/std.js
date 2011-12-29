@@ -1,5 +1,4 @@
 var Class = require('./Class'),
-  	bind = require('./bind'),
 	invokeWith = require('./invokeWith'),
 	slice = require('./slice'),
 	each = require('./each')
