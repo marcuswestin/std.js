@@ -17,12 +17,11 @@
 				sendResponse.removeBlock()
 			})
 		}
-		sendResponse.removeBlock()
 	})
 */
 
 module.exports = function blockFunction(fn) {
-	var numBlocks = 1
+	var numBlocks = 0
 	return {
 		addBlock:function() {
 			numBlocks++
