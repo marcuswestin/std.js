@@ -32,7 +32,7 @@ function request(method, url, params, callback, headers, opts) {
 		try {
 			if (xhr.readyState != 4) { return }
 			if (onBeforeUnloadFired) { return }
-			if (xhr.status != 200) { return callback(new Error(xhr.response)) }
+			if (xhr.status != 200) { return callback(new Error(xhr.responseText)) }
 			result = (opts.json ? json.parse(xhr.responseText) : xhr.responseText)
 			if (xhr.getResponseHeader('Content-Type') == 'application/json') { result = json.parse(result) }
 		} catch(e) {
