@@ -1,9 +1,9 @@
 var Class = require('std/Class'),
-	UIComponent = require('std/ui/Component'),
+	Component = require('std/ui/Component'),
 	extend = require('std/extend'),
 	bind = require('std/bind')
 
-module.exports = Class(UIComponent, function(supr) {
+module.exports = Class(Component, function(supr) {
 	
 	var defaults = {
 		defaultValue: null
