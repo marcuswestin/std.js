@@ -42,7 +42,7 @@ var Client = Class(function() {
 		if (this.isSkyfire) { this.isMobile = true }
 		if (this.isIPhone) { this.isMobile = true }
 		if (this.isIOS && this.isSafari) {
-			this.isICabMobile = this._userAgent.match(/^iPhone; U;/) // Disguised as Safari, but with a "iPhone; U;" in it: Mozilla/5.0 (iPhone; U; CPU iPhone OS 5_0 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A334 Safari/7534.48.3
+			this.isICabMobile = this._userAgent.match(/iPhone; U;/) // Disguised as Safari, but with a "iPhone; U;" in it: Mozilla/5.0 (iPhone; U; CPU iPhone OS 5_0 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A334 Safari/7534.48.3
 		}
 		if (this.isAndroid) {
 			if (this._userAgent.match(mobileRegex)) { this.isMobile = true }
