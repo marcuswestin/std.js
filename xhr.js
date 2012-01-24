@@ -33,8 +33,8 @@ function request(method, url, params, callback, headers, opts) {
 			if (xhr.readyState != 4) { return }
 			if (onBeforeUnloadFired) { return }
 			if (xhr.status != 200) { return callback(new Error(xhr.responseText)) }
-			result = (opts.json ? json.parse(xhr.responseText) : xhr.responseText)
-			if (xhr.getResponseHeader('Content-Type') == 'application/json') { result = json.parse(result) }
+			// result = (opts.json ? json.parse(xhr.responseText) : xhr.responseText)
+			if (xhr.getResponseHeader('Content-Type') == 'application/json') { result = json.parse(xhr.responseText) }
 		} catch(e) {
 			err = e
 		}
@@ -43,20 +43,27 @@ function request(method, url, params, callback, headers, opts) {
 			callback(err, result)
 		}
 	}
-
-	var data = null
-
+	
+	var uriEncode = (opts.encode === false
+		? function(params) { return map(params, function(val, key) { return key+'='+val }).join('&') }
+		: function(params) { return map(params, function(val, key) { return encodeURIComponent(key)+'='+encodeURIComponent(val) }).join('&') })
+	
+	var data = ''
 	if (method == 'GET') {
-		var encode = (opts.encode !== false),
-			queryArr = map(params, function(value, key) { return (encode ? encodeURIComponent(key) : key) + '=' + (encode ? encodeURIComponent(value) : value) })
-			url += (url.indexOf('?') == -1 && queryArr.length ? '?' : '') + queryArr.join('&')
+		var queryParams = uriEncode(params)
+		url += (url.indexOf('?') == -1 && queryParams ? '?' : '') + queryParams
 	} else if (method == 'POST') {
-		data = json.stringify(params)
+		var contentType = headers['Content-Type']
+		if (!contentType) {
+			contentType = headers['Content-Type'] = 'application/x-www-form-urlencoded'
+		}
+		if (contentType == 'application/x-www-form-urlencoded') {
+			data = uriEncode(params)
+		} else if (contentType == 'application/json') {
+			data = json.stringify(params)
+		}
 	}
 	xhr.open(method, url, true)
-	if (method == 'POST') {
-		if (!headers['Content-Type']) { headers['Content-Type'] = "application/x-www-form-urlencoded" }
-	}
 	each(headers, function(val, key) { xhr.setRequestHeader(key, val) })
 	xhr.send(data)
 }
