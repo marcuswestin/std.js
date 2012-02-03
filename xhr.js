@@ -32,9 +32,14 @@ function request(method, url, params, callback, headers, opts) {
 		try {
 			if (xhr.readyState != 4) { return }
 			if (onBeforeUnloadFired) { return }
-			if (xhr.status != 200) { return callback(new Error(xhr.responseText)) }
-			// result = (opts.json ? json.parse(xhr.responseText) : xhr.responseText)
-			if (xhr.getResponseHeader('Content-Type') == 'application/json') { result = json.parse(xhr.responseText) }
+			var text = xhr.responseText,
+				isJson = xhr.getResponseHeader('Content-Type') == 'application/json'
+			if (xhr.status == 200) {
+				result = isJson ? json.parse(text) : text
+			} else {
+				try { err = isJson ? json.parse(text) : new Error(text) }
+				catch (e) { err = new Error(text) }
+			}
 		} catch(e) {
 			err = e
 		}
