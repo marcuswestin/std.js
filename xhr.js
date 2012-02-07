@@ -34,7 +34,7 @@ function request(method, url, params, callback, headers, opts) {
 			if (onBeforeUnloadFired) { return }
 			var text = xhr.responseText,
 				isJson = xhr.getResponseHeader('Content-Type') == 'application/json'
-			if (xhr.status == 200) {
+			if (xhr.status == 200 || xhr.status == 204) {
 				result = isJson ? json.parse(text) : text
 			} else {
 				try { err = isJson ? json.parse(text) : new Error(text) }
