@@ -38,6 +38,15 @@ var Client = Class(function() {
 		this.isAndroid = this._isBrowser('Android', 'Version')
 		this.isIOS = (this.isIPhone || this.isIPad || this.isIPod)
 		
+		if (this.isIOS) {
+			var osVersionMatch = this._userAgent.match(/ OS ([\d_]+) /),
+				osVersion = osVersionMatch ? osVersionMatch[1] : '',
+				parts = osVersion.split('_'),
+				version = { major:parseInt(parts[0]), minor:parseInt(parts[1]), patch:parseInt(parts[2]) }
+			
+			this.os = { version:version }
+		}
+		
 		if (this.isOpera && this._userAgent.match('Opera Mobi')) { this.isMobile = true } // Opera mobile is a proper mobile browser - Opera/9.80 (Android; Opera Mini/6.5.26571/ 26.1069; U; en) Presto/2.8.119 Version/10.54
 		if (this.isSkyfire) { this.isMobile = true }
 		if (this.isIPhone) { this.isMobile = true }
