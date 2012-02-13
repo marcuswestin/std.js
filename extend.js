@@ -28,10 +28,10 @@
 	a.getBar() == 'sim'
 */
 
-var create = require('std/create')
+var copy = require('std/copy')
 
 module.exports = function extend(target, extendWith) {
-	target = target ? create(target) : {}
+	target = target ? copy(target) : {}
 	for (var key in extendWith) {
 		if (typeof target[key] != 'undefined') { continue }
 		target[key] = extendWith[key]

@@ -8,7 +8,7 @@ module.exports = Class(function() {
 		this._subscribers = {}
 	}
 	
-	this.subscribe = function(signal, fn) {
+	this.on = this.subscribe = function(signal, fn) {
 		var subscribers = this._subscribers[signal]
 		if (!subscribers) { subscribers = this._subscribers[signal] = [] }
 		subscribers.push(fn)

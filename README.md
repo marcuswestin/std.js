@@ -12,4 +12,5 @@ Acknowledgements
 - json.js taken from https://github.com/douglascrockford/JSON-js
 - trim taken from http://code.google.com/p/closure-library/source/browse/trunk/closure/goog/string/string.js?r=2
 - The following functions are taken from nodeunit - https://github.com/caolan/nodeunit, https://github.com/caolan/nodeunit/blob/master/LICENSE: deepEqual
+- base64.js implementation taken from @dankogai's https://github.com/dankogai/js-base64, MIT licensed
 

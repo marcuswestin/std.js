@@ -1,3 +1,13 @@
+v0.1.29
++ import base64
++ Many other changes...
+
+v0.1.28
++ implement repeat
++ implement deepEqual
++ implement proto
++ improved client detection in client.js
+
 v0.1.27
 + make client a proper class, and add the beginnins to OS user-agent parsing
 + improve url.js - enable getting and setting the hash/query params

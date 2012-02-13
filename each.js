@@ -1,4 +1,5 @@
-var isArray = require('./isArray')
+var isArray = require('./isArray'),
+	isArguments = require('./isArguments')
 
 module.exports = function(items, ctx, fn) {
 	if (!items) { return }
@@ -6,7 +7,7 @@ module.exports = function(items, ctx, fn) {
 		fn = ctx
 		ctx = this
 	}
-	if (isArray(items)) {
+	if (isArray(items) || isArguments(items)) {
 		for (var i=0; i < items.length; i++) {
 			fn.call(ctx, items[i], i)
 		}
