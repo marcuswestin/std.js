@@ -30,9 +30,9 @@ module.exports = Class(function() {
     this._playing = false
 		clearInterval(this._intervalID)
 	}
-  
-  this.isGoing = function() { return this._playing }
-  
+	
+	this.isGoing = function() { return this._playing }
+	
 	this._onInterval = function() {
 		var deltaT = new Date().getTime() - this._startT,
 		  duration = this._duration
