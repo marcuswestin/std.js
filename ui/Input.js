@@ -1,7 +1,7 @@
-var Class = require('std/Class'),
-	Component = require('std/ui/Component'),
-	extend = require('std/extend'),
-	bind = require('std/bind')
+var Class = require('../Class'),
+	Component = require('../ui/Component'),
+	extend = require('../extend'),
+	bind = require('../bind')
 
 module.exports = Class(Component, function(supr) {
 	

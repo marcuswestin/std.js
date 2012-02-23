@@ -1,10 +1,10 @@
-var Class = require('std/Class'),
-	Publisher = require('std/Publisher'),
-	extend = require('std/extend'),
-	slice = require('std/slice'),
-	remove = require('std/remove'),
-	bind = require('std/bind'),
-	browser = require('std/browser')
+var Class = require('../Class'),
+	Publisher = require('../Publisher'),
+	extend = require('../extend'),
+	slice = require('../slice'),
+	remove = require('../remove'),
+	bind = require('../bind'),
+	browser = require('../browser')
 
 module.exports = Class(Publisher, function(supr) {
 	

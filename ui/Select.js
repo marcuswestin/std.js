@@ -1,5 +1,5 @@
 var Class = require('../Class'),
-	Component = require('./Component'),
+	Component = require('../Component'),
 	extend = require('../extend')
 
 module.exports = Class(Component, function() {

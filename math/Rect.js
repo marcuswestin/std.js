@@ -1,4 +1,4 @@
-var Class = require('std/Class')
+var Class = require('../Class')
 
 module.exports = Class(function() {
 	
