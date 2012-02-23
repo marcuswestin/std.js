@@ -1,7 +1,8 @@
 var Class = require('./Class'),
 	invokeWith = require('./invokeWith'),
 	slice = require('./slice'),
-	each = require('./each')
+	each = require('./each'),
+	bind = require('std/bind')
 
 module.exports = Class(function() {
 	this.init = function() {
@@ -19,5 +20,9 @@ module.exports = Class(function() {
 		this._fulfillment = slice(arguments)
 		each(this._dependants, invokeWith.apply(this, this._fulfillment))
 		delete this._dependants
+	}
+	
+	this.nextTickAdd = function(callback) {
+		setTimeout(bind(this, this.add, callback), 0)
 	}
 })

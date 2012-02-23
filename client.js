@@ -65,8 +65,8 @@ var Client = Class(function() {
 	
 	this._isBrowser = function(name, versionString) {
 		if (!this._is(name)) { return false }
-		var agent = this._userAgent
-		if (versionString) { var index = agent.indexOf(versionString) }
+		var agent = this._userAgent,
+			index = agent.indexOf(versionString || name)
 		this.version = parseFloat(agent.substr(index + (versionString || name).length + 1))
 		this.name = name
 		return true
