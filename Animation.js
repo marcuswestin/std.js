@@ -19,7 +19,7 @@ module.exports = Class(function() {
 	}
 	
 	this.start = function(reverse) {
-    this._playing = true
+		this._playing = true
 		this._startT = new Date().getTime()
 		this._reverse = reverse
 		this._onInterval()
@@ -27,7 +27,7 @@ module.exports = Class(function() {
 	}
 	
 	this.stop = function() {
-    this._playing = false
+		this._playing = false
 		clearInterval(this._intervalID)
 	}
 	
@@ -35,18 +35,17 @@ module.exports = Class(function() {
 	
 	this._onInterval = function() {
 		var deltaT = new Date().getTime() - this._startT,
-		  duration = this._duration
+			duration = this._duration
 		if (deltaT >= duration) {
-		  this.stop()
-		  this._animationFunction(this._tween(this._reverse ? 0 : 1))
-		  if (this._onDone) { this._onDone() }
-		  return
+			this.stop()
+			this._animationFunction(this._tween(this._reverse ? 0 : 1))
+			if (this._onDone) { this._onDone() }
+			return
 		}
 		var delta = deltaT / duration
 		if (this._reverse) { delta = 1 - delta }
 		this._animationFunction(this._tween(delta))
 	}
-	
 })
 
 // Easing equation function for elastic tween: http://code.google.com/p/kawanet/source/browse/lang/as3/KTween/trunk/src/net/kawa/tween/easing/Elastic.as
