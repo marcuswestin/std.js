@@ -1,5 +1,5 @@
 var Class = require('./Class'),
-	map = require('std/map')
+	map = require('./map')
 
 var URL = Class(function() {
 

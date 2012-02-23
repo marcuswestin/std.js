@@ -28,7 +28,7 @@
 	a.getBar() == 'sim'
 */
 
-var copy = require('std/copy')
+var copy = require('./copy')
 
 module.exports = function extend(target, extendWith) {
 	target = target ? copy(target) : {}
