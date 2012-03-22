@@ -1,4 +1,7 @@
-Intended v0.1.31
+v0.1.32
++ implement blockFunction.addBlock
+
+v0.1.31
 + Beefed up proto.js
 
 v0.1.30
