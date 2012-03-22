@@ -31,7 +31,12 @@ module.exports = function blockFunction(fn) {
 			if (!fn) { throw new Error("Block removed after function was unblocked") }
 			if (!numBlocks) { throw new Error("Tried to remove a block that was never added") }
 			if (--numBlocks) { return }
-			fn()
+			fn(null)
+			delete fn
+			return this
+		},
+		fail:function(error) {
+			fn(error)
 			delete fn
 			return this
 		}
