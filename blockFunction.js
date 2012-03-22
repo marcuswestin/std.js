@@ -25,6 +25,7 @@ module.exports = function blockFunction(fn) {
 	return {
 		addBlock:function() {
 			numBlocks++
+			return this
 		},
 		removeBlock:function() {
 			if (!fn) { throw new Error("Block removed after function was unblocked") }
@@ -32,6 +33,7 @@ module.exports = function blockFunction(fn) {
 			if (--numBlocks) { return }
 			fn()
 			delete fn
+			return this
 		}
 	}
 }
