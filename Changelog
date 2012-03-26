@@ -1,3 +1,6 @@
+v0.1.33
++ extend now uses copy instead of create
+
 v0.1.32
 + implement blockFunction.addBlock
 
