@@ -32,7 +32,7 @@ var proto = module.exports = function proto(prototypeObject, instantiationFuncti
 	}
 	// The prototype object itself points to the passed-in prototypeObject,
 	// but also has all the properties enumerated in propertiesToAdd
-	F.prototype = create(prototypeObject, propertiesToAdd)
+	F.prototype = prototypeObject ? create(prototypeObject, propertiesToAdd) : propertiesToAdd
 	
 	return function() {
 		return new F(arguments)
