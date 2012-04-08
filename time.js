@@ -8,7 +8,7 @@ var time = module.exports = {
 }
 
 time.second = time.seconds = 1000
-time.minute = time.minute = 60 * time.second
+time.minute = time.minutes = 60 * time.second
 time.hour = time.hours = 60 * time.minute
 time.day = time.days = 24 * time.hour
 time.week = time.weeks = 7 * time.day
