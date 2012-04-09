@@ -26,4 +26,13 @@ module.exports = Class(function() {
 	this.nextTickAdd = function(callback) {
 		setTimeout(bind(this, this.add, callback), 0)
 	}
+	
+	this.getCallback = function() {
+		return this._callback || this._callback = bind(this, this.handle)
+	}
+	
+	this.handle = function(err, result) {
+		if (err) { this.fail(err) }
+		else { this.fulfill(result) }
+	}
 })
