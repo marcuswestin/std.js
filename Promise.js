@@ -5,9 +5,10 @@ var Class = require('./Class'),
 	bind = require('./bind')
 
 module.exports = Class(function() {
-	this.init = function() {
+	this.init = function(callback) {
 		this._dependants = []
 		this._fulfillment = null
+		if (callback) { this.add(callback) }
 	}
 
 	this.add = function(callback) {
