@@ -1,3 +1,7 @@
+v0.1.34
++ Better Promises
++ Small fix in time.js
+
 v0.1.33
 + extend now uses copy instead of create
 
