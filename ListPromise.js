@@ -1,4 +1,5 @@
-var proto = require('./proto')
+var proto = require('./proto'),
+	bind = require('./bind')
 
 module.exports = proto(null, 
 	function(waitForNum, callback) {
