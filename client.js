@@ -24,7 +24,7 @@ var Client = Class(function() {
 		
 		try {
 			document.createEvent("TouchEvent")
-			this.isTouch = true
+			this.isTouch = ('ontouchstart' in window)
 		} catch (e) {
 			this.isTouch = false
 		}
