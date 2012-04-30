@@ -74,7 +74,7 @@ function request(method, url, params, callback, headers, opts) {
 }
 
 function sendJSON(method, url, params, callback) {
-	return request(method, url, params, callback, { 'Content-Type':'application/json' }, { json:true })
+	return request(method, url, params, callback, { 'Content-Type':'application/json' })
 }
 
 function _abortXHR(xhr) {
