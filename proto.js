@@ -21,8 +21,7 @@
 	marcus.greet(john)
 */
 
-var create = require('./create'),
-	each = require('./each')
+var create = require('./create')
 
 var proto = module.exports = function proto(prototypeObject, instantiationFunction, propertiesToAdd) {
 	// F is the function that is required in order to implement JS prototypical inheritence
