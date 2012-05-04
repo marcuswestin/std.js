@@ -22,15 +22,12 @@ var router = {
 			var name = parts[i]
 			var isVariable = (name[0] == ':')
 			var key = isVariable ? ':' : name
+			route = route[key] = {}
 			if (i == parts.length - 1) {
-				if (route[key]) {
-					throw new Error("Conflicting route name: " + routeName)
-				}
-				route[key] = { handler:handler }
-			} else if (isVariable) {
-				route = route[key] = { __paramName:name }
-			} else {
-				route = route[key] = {}
+				route.handler = handler
+			}
+			if (isVariable) {
+				route.__paramName = name.substr(1)
 			}
 		}
 		return this
@@ -51,10 +48,13 @@ var router = {
 		parts.shift()
 		for (var i=0; i<parts.length; i++) {
 			var name = parts[i]
-			if (!route[name]) { return this._onError(url) }
-			route = route[name]
-			if (route.__paramName) {
+			if (route[':']) {
+				route = route[':']
 				params[route.__paramName] = name
+			} else if (route[name]) {
+				route = route[name]
+			} else {
+				return this._onError(url)
 			}
 		}
 		
