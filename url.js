@@ -76,6 +76,7 @@ var URL = Class(function() {
 })
 
 var url = module.exports = function url(url) { return new URL(url) }
+url.parse = url
 
 url.query = {
 	parse:function(paramString) {

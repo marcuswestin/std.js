@@ -1,10 +1,10 @@
-var each = require('./each')
 // Thanks Douglas Crockford! http://javascript.crockford.com/prototypal.html
 module.exports = function create(obj, extendWithProperties) {
 	function extendObject(result, props) {
-		each(props, function(val, key) {
-			result[key] = val
-		})
+		for (var key in props) {
+			if (!props.hasOwnProperty(key)) { continue }
+			result[key] = props[key]
+		}
 		return result
 	}
 	if (typeof Object.create == 'function') {
