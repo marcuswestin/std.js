@@ -22,7 +22,8 @@ var router = {
 			var name = parts[i]
 			var isVariable = (name[0] == ':')
 			var key = isVariable ? ':' : name
-			route = route[key] = {}
+			if (!route[key]) { route[key] = {} }
+			route = route[key]
 			if (i == parts.length - 1) {
 				route.handler = handler
 			}
@@ -54,7 +55,7 @@ var router = {
 			} else if (route[name]) {
 				route = route[name]
 			} else {
-				return this._onError(url)
+				return this._onError(path)
 			}
 		}
 		
