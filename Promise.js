@@ -28,7 +28,7 @@ module.exports = Class(function() {
 	}
 	
 	this.getCallback = function() {
-		return this._callback || this._callback = bind(this, this.handle)
+		return this._callback || (this._callback = bind(this, this.handle))
 	}
 	
 	this.handle = function(err, result) {
