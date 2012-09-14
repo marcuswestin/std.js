@@ -8,7 +8,7 @@ module.exports = {
 	isArray: require('./isArray'),
 	each: require('./each'),
 	map: require('./map'),
-	pick: require('./pick'), // deprecated in favor of filter
+	pick: require('./filter'), // deprecated in favor of filter
 	filter: require('./filter'),
 	flatten: require('./flatten'),
 	extend: require('./extend'),
