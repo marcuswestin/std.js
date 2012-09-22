@@ -22,6 +22,10 @@ var Client = Class(function() {
 			if (this._userAgent.match('Opera Mini')) { this.isOperaMini = true } // Opera mini is a cloud browser - Opera/9.80 (Android 2.3.4; Linux; Opera Mobi/ADR-1110171336; U; en) Presto/2.9.201 Version/11.50
 		}
 		
+		if (this.isIE) {
+			this.isChromeFrame = !!this._userAgent.match('chromeframe')
+		}
+		
 		try {
 			document.createEvent("TouchEvent")
 			this.isTouch = true
