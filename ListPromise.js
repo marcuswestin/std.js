@@ -34,6 +34,7 @@ module.exports = proto(null,
 			this._notifyAll()
 		},
 		_notifyAll: function() {
+			if (!this._callbacks) { return }
 			for (var i=0; i<this._callbacks.length; i++) {
 				this._notify(this._callbacks[i])
 			}
