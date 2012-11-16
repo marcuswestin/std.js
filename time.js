@@ -53,33 +53,34 @@ function _stepFunction() {
 	var stepFn = function(ts, yield) {
 		var timeAgo = time.now() - ts
 		for (var i=0; i < steps.length; i+=3) {
-			var stepSize = steps[i],
-				stepPayload = steps[i+1],
-				stepGranularities = steps[i+2],
-				smallestGran = Number.MAX_VALUE
-
-			if (timeAgo > stepSize) { continue }
-
-			var untakenTime = timeAgo
-			each(stepGranularities, function(granularity) {
-				var granAmount = Math.floor(untakenTime / granularity)
-				untakenTime -= granAmount * granularity
-				stepPayload = stepPayload.replace('%N', granAmount)
-				if (granularity < smallestGran) {
-					smallestGran = granularity
-				}
-			})
-
+			if (timeAgo > steps[i]) { continue }
+			var result = _getStepResult(timeAgo, steps, i)
 			if (yield) {
-				yield(stepPayload)
-				if (smallestGran) {
-					setTimeout(curry(stepFn, ts, yield), smallestGran)
+				yield(result.payload)
+				if (result.smallestGranularity) {
+					setTimeout(curry(stepFn, ts, yield), result.smallestGranularity)
 				}
 			}
-			return stepPayload
+			return result.payload
 		}
-		var defaultValue = steps[steps.length - 1]
-		return defaultValue
+		return _getStepResult(timeAgo, steps, i - 3).payload // the last one
 	}
 	return stepFn
+}
+
+function _getStepResult(timeAgo, steps, i) {
+	var stepSize = steps[i]
+	var stepPayload = steps[i+1]
+	var stepGranularities = steps[i+2]
+	var smallestGranularity = Number.MAX_VALUE
+	var untakenTime = timeAgo
+	each(stepGranularities, function(granularity) {
+		var granAmount = Math.floor(untakenTime / granularity)
+		untakenTime -= granAmount * granularity
+		stepPayload = stepPayload.replace('%N', granAmount)
+		if (granularity < smallestGranularity) {
+			smallestGranularity = granularity
+		}
+	})
+	return { payload:stepPayload, smallestGranularity:smallestGranularity }
 }
