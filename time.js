@@ -35,6 +35,18 @@ ago.precise = _stepFunction(
 	time.week, '%N days, %N hours ago', [time.day, time.hour],
 	0, '%N weeks, %N days ago', [time.week, time.day])
 
+ago.brief = _stepFunction(
+	20 * time.second, 'now', null,
+	time.minute, '1 min', null,
+	time.hour, '%N min', [time.minute],
+	2 * time.hour, '1 hr', null,
+	time.day, '%N hrs', [time.hour],
+	time.day * 2, '1 day', null,
+	time.week, '%N days', [time.day],
+	2 * time.week, '1 week', [time.week],
+	0, '%N weeks', [time.week])
+
+
 
 function _stepFunction() {
 	var steps = arguments
