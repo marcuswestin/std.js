@@ -48,6 +48,7 @@ ago.brief = _stepFunction(
 
 
 
+var MAX_TIMEOUT_VALUE = 2147483647
 function _stepFunction() {
 	var steps = arguments
 	var stepFn = function(ts, yield) {
@@ -58,7 +59,8 @@ function _stepFunction() {
 			if (yield) {
 				yield(result.payload)
 				if (result.smallestGranularity) {
-					setTimeout(curry(stepFn, ts, yield), result.smallestGranularity)
+					var timeoutIn = Math.min(result.smallestGranularity - (timeAgo % result.smallestGranularity), MAX_TIMEOUT_VALUE)
+					setTimeout(curry(stepFn, ts, yield), timeoutIn)	
 				}
 			}
 			return result.payload
@@ -72,7 +74,7 @@ function _getStepResult(timeAgo, steps, i) {
 	var stepSize = steps[i]
 	var stepPayload = steps[i+1]
 	var stepGranularities = steps[i+2]
-	var smallestGranularity = Number.MAX_VALUE
+	var smallestGranularity = stepSize
 	var untakenTime = timeAgo
 	each(stepGranularities, function(granularity) {
 		var granAmount = Math.floor(untakenTime / granularity)
