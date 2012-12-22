@@ -26,14 +26,14 @@ ago.stepFunction = _stepFunction(
 	time.day * 2, 'one day ago', null,
 	time.week, '%N days ago', [time.day],
 	2 * time.week, '1 week ago', [time.week],
-	0, '%N weeks ago', [time.week])
+	Infinity, '%N weeks ago', [time.week])
 
 ago.precise = _stepFunction(
 	time.minute, '%N seconds ago', [time.second],
 	time.hour, '%N minutes, %N seconds ago', [time.minute, time.second],
 	time.day, '%N hours, %N minutes ago', [time.hour, time.minute],
 	time.week, '%N days, %N hours ago', [time.day, time.hour],
-	0, '%N weeks, %N days ago', [time.week, time.day])
+	Infinity, '%N weeks, %N days ago', [time.week, time.day])
 
 ago.brief = _stepFunction(
 	20 * time.second, 'now', null,
@@ -43,8 +43,10 @@ ago.brief = _stepFunction(
 	time.day, '%N hrs', [time.hour],
 	time.day * 2, '1 day', null,
 	time.week, '%N days', [time.day],
-	2 * time.week, '1 week', [time.week],
-	0, '%N weeks', [time.week])
+	2 * time.week, '1 week', null,
+	30 * time.day, '%N weeks', [time.week],
+	60 * time.day, '1 month', null,
+	Infinity, '%N months', [time.day * 30])
 
 
 
