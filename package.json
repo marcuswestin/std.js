@@ -1,7 +1,7 @@
 {
   "name": "std",
   "description": "javascript standard library",
-  "version": "0.1.36",
+  "version": "0.1.37",
   "repository": {
     "type": "git",
     "url": "git://github.com/marcuswestin/std.js.git"

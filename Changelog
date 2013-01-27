@@ -1,5 +1,7 @@
-Intended v0.1.37
+v0.1.37
 + implemented waitFor
++ implemented rand
++ other improvements
 
 v0.1.35
 + Better touch detection
