@@ -1,32 +1,26 @@
+var serialEach = require('std/serialEach')
+
 module.exports = function serialMap(items, opts) {
-	var i = 0
 	var result = []
-	var iterate = opts.iterate
-	var finish = opts.finish
-	var ctx = opts.context
-	var filterNulls = opts.filterNulls || false
-	var error = null
-	// the given iterator may expect arguments (item + i + next), or just (item + i)
-	var callIterator = (iterate.length == 3 ? iterate : function(item, i, next) { iterate.call(this, item, next) })
-	function next() {
-		if (i == items.length) { return finish.call(ctx, null, result) }
-		var iterationI = i
-		process.nextTick(function() {
-			callIterator.call(ctx, items[iterationI], iterationI, iteratorCallback)
-		})
-		i += 1
-	}
-	function iteratorCallback(err, iterationResult) {
-		if (error) { return }
-		if (err) {
-			error = err
-			finish.call(ctx, err, null)
-		} else {
-			if (iterationResult != null || !filterNulls) {
+	var includeNullValues = !opts.filterNulls
+	var context = opts.context || this
+
+	var originalIterate = serialEach.makeIterator(context, opts.iterate)
+	opts.iterate = function(value, index, next) {
+		originalIterate(value, index, function(err, iterationResult) {
+			if (err) { return next(err) }
+			if (includeNullValues || (iterationResult != null)) {
 				result.push(iterationResult)
 			}
 			next()
-		}
+		})
 	}
-	next()
+
+	var originalFinish = opts.finish
+	opts.finish = function(err) {
+		if (err) { return originalFinish.call(context, err) }
+		originalFinish.call(context, null, result)
+	}
+
+	serialEach(items, opts)
 }
