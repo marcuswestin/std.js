@@ -1,16 +1,17 @@
-var serialEach = require('std/serialEach')
+var asyncEach = require('std/asyncEach')
 
-module.exports = function serialMap(items, opts) {
+module.exports = function asyncMap(items, opts) {
 	var result = []
+	result.length = items.length
 	var includeNullValues = !opts.filterNulls
 	var context = opts.context || this
 
-	var originalIterate = serialEach.makeIterator(context, opts.iterate)
+	var originalIterate = asyncEach.makeIterator(context, opts.iterate)
 	opts.iterate = function(value, index, next) {
 		originalIterate(value, index, function(err, iterationResult) {
 			if (err) { return next(err) }
 			if (includeNullValues || (iterationResult != null)) {
-				result.push(iterationResult)
+				result[index] = iterationResult
 			}
 			next()
 		})
@@ -22,5 +23,5 @@ module.exports = function serialMap(items, opts) {
 		originalFinish.call(context, null, result)
 	}
 
-	serialEach(items, opts)
+	asyncEach(items, opts)
 }

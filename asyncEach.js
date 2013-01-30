@@ -1,4 +1,6 @@
-module.exports = function serialEach(items, opts) {
+var nextTick = require('std/nextTick')
+
+module.exports = function asyncEach(items, opts) {
 	var finish = opts.finish
 	if (!items.length) { return finish(null, []) }
 	
@@ -23,7 +25,7 @@ module.exports = function serialEach(items, opts) {
 			return
 		}
 		nextIndex += 1
-		process.nextTick(function() {
+		nextTick(function() {
 			iterator(items[iterationIndex], iterationIndex, iteratorCallback)
 		})
 	}
