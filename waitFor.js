@@ -1,10 +1,10 @@
 module.exports = function waitFor(num, callback) {
-	var error
+	var seenError
 	return function(err, res) {
 		if (num == 0) { return log.warn("waitFor was called more than the expected number of times") }
-		if (error) { return }
+		if (seenError) { return }
 		if (err) {
-			error = err
+			seenError = true
 			return callback(err)
 		}
 		num -= 1
