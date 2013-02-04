@@ -14,6 +14,7 @@ module.exports = Class(function() {
 	this.add = function(callback) {
 		if (this._fulfillment) { callback.apply(this, this._fulfillment) }
 		else { this._dependants.push(callback) }
+		return this
 	}
 
 	this.fulfill = function(/* arg1, arg2, ...*/) {
