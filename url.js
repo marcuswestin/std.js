@@ -24,6 +24,11 @@ var URL = Class(function() {
 		this.search = (match[6]||'').substr(1)
 		this.hash = (match[7]||'').substr(1)
 	}
+	
+	this.setProtocol = function(protocol) {
+		this.protocol = protocol
+		return this
+	}
 
 	this.toString = function() {
 		return [
