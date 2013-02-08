@@ -32,8 +32,8 @@ var URL = Class(function() {
 
 	this.toString = function() {
 		return [
-			this.protocol,
-			this.host ? '//' + this.host : '',
+			this.protocol || '//',
+			this.host,
 			this.pathname,
 			this.getSearch(),
 			this.getHash()
