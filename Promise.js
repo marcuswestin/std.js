@@ -22,6 +22,7 @@ module.exports = Class(function() {
 		this._fulfillment = slice(arguments)
 		each(this._dependants, invokeWith.apply(this, this._fulfillment))
 		delete this._dependants
+		return this
 	}
 	
 	this.nextTickAdd = function(callback) {
