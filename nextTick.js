@@ -1,5 +1,5 @@
 module.exports = (function(global) {
-	if (typeof process != 'undfined' && process.nextTick) { return process.nextTick }
+	if (typeof process != 'undefined' && process.nextTick) { return process.nextTick }
 	
 	var requestAnimationFrame = global.requestAnimationFrame || global.mozRequestAnimationFrame || global.webkitRequestAnimationFrame || global.msRequestAnimationFrame
 	if (requestAnimationFrame) { return makeTicker(requestAnimationFrame) }
