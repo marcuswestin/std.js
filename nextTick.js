@@ -8,7 +8,7 @@ module.exports = (function(global) {
 	
 	function makeTicker(tickFn) {
 		return function nextTick(callback) {
-			tickFn(callback)
+			tickFn(function() { callback() }) // Do not pass through arguments from setTimeout/requestAnimationFrame
 		}
 	}
 }(this))
