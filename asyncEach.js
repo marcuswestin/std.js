@@ -4,7 +4,9 @@ module.exports = function asyncEach(items, opts) {
 	var finish = opts.finish
 	if (!items.length) { return finish(null, []) }
 	
-	var parallel = opts.parallel || 1
+	var parallel = opts.parallel
+	if (parallel === true) { parallel = items.length }
+	if (!parallel) { parallel = 1 }
 	if (parallel > waitingFor) { parallel = waitingFor }
 
 	var nextIndex = 0
