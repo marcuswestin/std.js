@@ -7,7 +7,7 @@ var URL = Class(function() {
 	this._extractionRegex = new RegExp([
 		'^', // start at the beginning of the string
 		'((\\w+:)?//)?', // match a possible protocol, like http://, ftp://, or // for a relative url
-		'(\\w[\\w\\.]+)?', // match a possible domain
+		'(\\w[\\w\\.\\-]+)?', // match a possible domain
 		'(:\\d+)?', // match a possible port
 		'(\\/[^\\?#]+)?', // match a possible path
 		'(\\?[^#]+)?', // match possible GET parameters
