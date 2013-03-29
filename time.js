@@ -24,7 +24,7 @@ function timeWithBase(base) {
 		inWeeks: inWeeks
 	}
 
-	time.millisecond = 1 / base
+	time.millisecond = time.milliseconds = 1 / base
 	time.second = time.seconds = 1000 * time.millisecond
 	time.minute = time.minutes = 60 * time.second
 	time.hour = time.hours = 60 * time.minute
