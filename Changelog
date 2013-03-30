@@ -1,3 +1,6 @@
+v0.1.39
++ Stop using Changelog. See `git log`
+
 v0.1.38
 + implement parallel
 + implement asyncEach
