@@ -2,14 +2,14 @@ var curry = require('./curry')
 var slice = require('./slice')
 var each = require('./each')
 
-var time = module.exports = timeWithBase(1) // millisecond
+var msTime = module.exports = timeWithBase(1) // millisecond
 
-function inMilliseconds() { return timeWithBase(time.milliseconds) }
-function inSeconds() { return timeWithBase(time.seconds) }
-function inMinutes() { return timeWithBase(time.minutes) }
-function inHours() { return timeWithBase(time.hours) }
-function inDays() { return timeWithBase(time.days) }
-function inWeeks() { return timeWithBase(time.weeks) }
+function inMilliseconds() { return timeWithBase(msTime.milliseconds) }
+function inSeconds() { return timeWithBase(msTime.seconds) }
+function inMinutes() { return timeWithBase(msTime.minutes) }
+function inHours() { return timeWithBase(msTime.hours) }
+function inDays() { return timeWithBase(msTime.days) }
+function inWeeks() { return timeWithBase(msTime.weeks) }
 
 function timeWithBase(base) {
 	var time = {
@@ -69,16 +69,23 @@ function timeWithBase(base) {
 	var MAX_TIMEOUT_VALUE = 2147483647
 	function _stepFunction() {
 		var steps = arguments
-		var stepFn = function(unbasedTimestamp, yield) {
-			var millisecondsAgo = (now(time.milliseconds) - unbasedTimestamp)
-			for (var i=0; i < steps.length; i+=3) {
-				if (millisecondsAgo > steps[i]) { continue }
-				var result = _getStepResult(millisecondsAgo, steps, i)
+		var stepFn = function(basedTimestamp, yield) {
+			var timeAgo = (now() - basedTimestamp)
+			var millisecondsAgo = timeAgo * base
+			if (timeAgo < 0) {
+				setTimeout(curry(stepFn, basedTimestamp, yield), -millisecondsAgo + 1)
+				yield && yield('future')
+				return 'future'
+			}
+			for (var i=0; i<steps.length; i+=3) {
+				if (timeAgo > steps[i]) { continue }
+				var result = _getStepResult(timeAgo, steps, i)
 				if (yield) {
 					yield(result.payload)
 					if (result.smallestGranularity) {
-						var timeoutIn = Math.min(result.smallestGranularity - (millisecondsAgo % result.smallestGranularity), MAX_TIMEOUT_VALUE)
-						setTimeout(curry(stepFn, unbasedTimestamp, yield), timeoutIn * base)
+						var timeoutIn = result.smallestGranularity - (timeAgo % result.smallestGranularity)
+						var timeoutInMs = Math.min(timeoutIn*base, MAX_TIMEOUT_VALUE)
+						setTimeout(curry(stepFn, basedTimestamp, yield), timeoutInMs)
 					}
 				}
 				return result.payload
@@ -88,12 +95,12 @@ function timeWithBase(base) {
 		return stepFn
 	}
 
-	function _getStepResult(millisecondsAgo, steps, i) {
+	function _getStepResult(timeAgo, steps, i) {
 		var stepSize = steps[i]
 		var stepPayload = steps[i+1]
 		var stepGranularities = steps[i+2]
 		var smallestGranularity = stepSize
-		var untakenTime = millisecondsAgo
+		var untakenTime = timeAgo
 		each(stepGranularities, function(granularity) {
 			var granAmount = Math.floor(untakenTime / granularity)
 			untakenTime -= granAmount * granularity
