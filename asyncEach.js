@@ -51,13 +51,15 @@ module.exports = function asyncEach(items, opts) {
 
 module.exports.makeIterator = function(context, iterate) {
 	// the given iterator may expect arguments (item + i + next), or just (item + i)
-	if (iterate.length == 3) {
+	if (iterate.length == 2) {
+		return function iterator2(item, i, next) {
+			iterate.call(context, item, next)
+		}
+	} else if (iterate.length == 3) {
 		return function iterator3(item, i, next) {
 			iterate.call(context, item, i, next)
 		}
 	} else {
-		return function iterator2(item, i, next) {
-			iterate.call(context, item, next)
-		}
+		throw new Error('iterate function must take 2 or 3 arguments')
 	}
 }
