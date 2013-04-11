@@ -7,6 +7,7 @@ var each = require('./each')
 var isArray = require('./isArray')
 
 module.exports = function filter(arr, ctx, fn) {
+	if (!arr) { return [] }
 	if (arguments.length == 2) {
 		fn = ctx
 		ctx = this
