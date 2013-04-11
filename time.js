@@ -21,8 +21,16 @@ function timeWithBase(base) {
 		inMinutes: inMinutes,
 		inHours: inHours,
 		inDays: inDays,
-		inWeeks: inWeeks
+		inWeeks: inWeeks,
+		// utc vs local time
+		getLocalTime: getLocalTime,
+		getLocalDay: getLocalDay,
+		getLocalHourOfDay: getLocalHourOfDay
 	}
+
+	function getLocalTime(utcTime, utcOffset) { return utcTime + utcOffset * time.hours }
+	function getLocalDay(utcTime, utcOffset) { return Math.floor(getLocalTime(utcTime, utcOffset) / time.day) }
+	function getLocalHourOfDay(utcTime, utcOffset) { return Math.floor(getLocalTime(utcTime, utcOffset) / time.hour) % 24 }
 
 	time.millisecond = time.milliseconds = 1 / base
 	time.second = time.seconds = 1000 * time.millisecond
