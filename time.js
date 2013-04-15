@@ -74,6 +74,18 @@ function timeWithBase(base) {
 		60 * time.day, '1 month', null,
 		Infinity, '%N months', [time.day * 30])
 
+	ago.days = _stepFunction(
+		time.day, 'Today', null,
+		time.day * 2, 'Yesterday', null,
+		time.week, '%N days ago', [time.day],
+		time.week * 2, 'Last week', null,
+		30 * time.day, '%N weeks ago', [time.week],
+		60 * time.day, 'Last month', null,
+		365 * time.day, '%N months ago', [time.day * 30],
+		365 * time.day * 2, 'Last year', null,
+		Infinity, '%N years ago', [time.day * 365]
+	)
+
 	var MAX_TIMEOUT_VALUE = 2147483647
 	function _stepFunction() {
 		var steps = arguments
