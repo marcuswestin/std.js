@@ -2,6 +2,8 @@ var nextTick = require('std/nextTick')
 
 module.exports = function asyncEach(items, opts) {
 	var finish = opts.finish
+	if (typeof finish != 'function') { throw 'finish function is required' }
+	
 	if (!items.length) { return finish(null, []) }
 	
 	var parallel = opts.parallel
