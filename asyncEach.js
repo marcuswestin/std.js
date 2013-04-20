@@ -51,7 +51,9 @@ module.exports = function asyncEach(items, opts) {
 
 module.exports.makeIterator = function(context, iterate) {
 	// the given iterator may expect arguments (item + i + next), or just (item + i)
-	if (iterate.length == 2) {
+	if (!iterate) {
+		throw new Error('iterate function is undefined')
+	} else if (iterate.length == 2) {
 		return function iterator2(item, i, next) {
 			iterate.call(context, item, next)
 		}
