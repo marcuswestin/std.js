@@ -28,7 +28,7 @@ function timeWithBase(base) {
 		getLocalHourOfDay: getLocalHourOfDay
 	}
 
-	function getLocalTime(utcTime, utcOffset) { return utcTime + utcOffset * time.hours }
+	function getLocalTime(utcTime, utcOffset) { return utcTime + utcOffset * time.minutes }
 	function getLocalDay(utcTime, utcOffset) { return Math.floor(getLocalTime(utcTime, utcOffset) / time.day) }
 	function getLocalHourOfDay(utcTime, utcOffset) { return Math.floor(getLocalTime(utcTime, utcOffset) / time.hour) % 24 }
 
