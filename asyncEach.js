@@ -1,20 +1,24 @@
 var nextTick = require('std/nextTick')
+var isList = require('std/isList')
 
 module.exports = function asyncEach(items, opts) {
 	var finish = opts.finish
 	if (typeof finish != 'function') { throw 'finish function is required' }
 	
-	if (!items.length) { return finish(null, []) }
+	var objectKeys = isList(items) ? null : Object.keys(items)
+	var numItems = isList(items) ? items.length : objectKeys.length
+	
+	if (!numItems) { return finish(null, []) }
 	
 	var parallel = opts.parallel
-	if (parallel === true) { parallel = items.length }
+	if (parallel === true) { parallel = numItems }
 	if (!parallel) { parallel = 1 }
 	if (parallel > waitingFor) { parallel = waitingFor }
 
 	var nextIndex = 0
 	var result = []
 	var errorResult = null
-	var waitingFor = items.length
+	var waitingFor = numItems
 	var context = opts.context || this
 
 	var iterator = module.exports.makeIterator(context, opts.iterate)
@@ -24,13 +28,14 @@ module.exports = function asyncEach(items, opts) {
 			return finish.call(context, null)
 		}
 		var iterationIndex = nextIndex
-		if (iterationIndex == items.length) {
+		if (iterationIndex == numItems) {
 			// no more processing to be done - just wait for the remaining parallel requests to finish
 			return
 		}
 		nextIndex += 1
+		var key = objectKeys ? objectKeys[iterationIndex] : iterationIndex
 		nextTick(function() {
-			iterator(items[iterationIndex], iterationIndex, iteratorCallback)
+			iterator(items[key], key, iteratorCallback)
 		})
 	}
 	

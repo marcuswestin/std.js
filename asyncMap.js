@@ -1,17 +1,18 @@
 var asyncEach = require('std/asyncEach')
+var isList = require('std/isList')
 
 module.exports = function asyncMap(items, opts) {
 	var result = []
-	result.length = items.length
+	result.length = isList(items) ? items.length : Object.keys(items).length
 	var includeNullValues = !opts.filterNulls
 	var context = opts.context || this
 
 	var originalIterate = asyncEach.makeIterator(context, opts.iterate)
-	opts.iterate = function(value, index, next) {
-		originalIterate(value, index, function(err, iterationResult) {
+	opts.iterate = function(value, indexOrKey, next) {
+		originalIterate(value, indexOrKey, function(err, iterationResult) {
 			if (err) { return next(err) }
 			if (includeNullValues || (iterationResult != null)) {
-				result[index] = iterationResult
+				result[indexOrKey] = iterationResult
 			}
 			next()
 		})
