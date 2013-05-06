@@ -1,12 +1,12 @@
 module.exports = function throttle(delay, fn) {
 	if (arguments.length == 1) {
 		fn = delay
-		delay = 0
+		delay = 50
 	}
-	var throttleTimeout
+	var lastCallTime
 	return function throttled() {
-		if (throttleTimeout) { return }
-		throttleTimeout = setTimeout(function() { throttleTimeout = null }, delay)
+		if (lastCallTime && (new Date().getTime() - lastCallTime) < delay) { return }
+		lastCallTime = new Date().getTime()
 		fn.apply(this, arguments)
 	}
 }
