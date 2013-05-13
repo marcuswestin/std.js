@@ -1,3 +1,3 @@
 module.exports = function first(arr) {
-	return arr[0]
+	return arr ? arr[0] : null
 }

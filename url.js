@@ -1,5 +1,6 @@
 var Class = require('./Class')
 var map = require('./map')
+var toArray = require('./toArray')
 var isArray = require('std/isArray')
 
 var URL = Class(function() {
@@ -96,7 +97,7 @@ url.query = {
 		return params
 	},
 	string:function(params) {
-		return map(params, function(val, key) {
+		return toArray(params, function(val, key) {
 			return encodeURIComponent(key) + '=' + url.query.encodeValue(val)
 		}).join('&')
 	},

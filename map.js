@@ -1,13 +1,10 @@
 var each = require('./each')
+var isList = require('./isList')
 
-module.exports = function(items, ctx, fn) {
-	var result = []
-	if (!fn) {
-		fn = ctx
-		ctx = this
-	}
-	each(items, ctx, function(item, key) {
-		result.push(fn.call(ctx, item, key))
+module.exports = function map(obj, fn) {
+	var result = isList(obj) ? new Array(obj.length) : {}
+	each(obj, function(val, key) {
+		result[key] = fn(val, key)
 	})
 	return result
 }
