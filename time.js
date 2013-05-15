@@ -25,7 +25,10 @@ function timeWithBase(base) {
 		// utc vs local time
 		getLocalTime: getLocalTime,
 		getLocalDay: getLocalDay,
-		getLocalHourOfDay: getLocalHourOfDay
+		getLocalHourOfDay: getLocalHourOfDay,
+		// helpers
+		farFuture: now() + 3000000000,
+		distantPast: -3000000000
 	}
 
 	function getLocalTime(utcTime, utcOffset) { return utcTime + utcOffset * time.minutes }
