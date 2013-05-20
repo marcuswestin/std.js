@@ -12,6 +12,9 @@ function inDays() { return timeWithBase(msTime.days) }
 function inWeeks() { return timeWithBase(msTime.weeks) }
 
 function timeWithBase(base) {
+	var farFuture = now() + 3000000000
+	var distantPast = -3000000000
+	
 	var time = {
 		now: now,
 		ago: ago,
@@ -27,8 +30,10 @@ function timeWithBase(base) {
 		getLocalDay: getLocalDay,
 		getLocalHourOfDay: getLocalHourOfDay,
 		// helpers
-		farFuture: now() + 3000000000,
-		distantPast: -3000000000
+		farFuture: farFuture,
+		distantFuture: farFuture,
+		distantPast: distantPast,
+		farPast: distantPast
 	}
 
 	function getLocalTime(utcTime, utcOffset) { return utcTime + utcOffset * time.minutes }
