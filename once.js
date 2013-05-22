@@ -1,13 +1,8 @@
 module.exports = function once(fn) {
-	var timeout
-	var args
+	var fired = false
 	return function() {
-		args = arguments
-		if (timeout) { return }
-		timeout = setTimeout(function() {
-			fn.apply(this, args)
-			timeout = null
-			args = null
-		}, 0)
+		if (fired) { return }
+		fired = true
+		fn.apply(this, arguments)
 	}
 }
