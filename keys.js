@@ -1,14 +1,13 @@
-module.exports = function keys(obj) {
+module.exports = (function() {
 	if (Object.keys) {
-		module.exports = function(obj) {
-			return Object.keys(obj)
-		}
+		return Object.keys
 	} else {
-		module.exports = function(obj) {
+		return function(obj) {
+			var keys = []
 			for (var k in obj) {
 				if (obj.hasOwnProperty(k)) { keys.push(k) }
 			}
+			return keys
 		}
 	}
-	return module.exports(obj)
-}
+}())

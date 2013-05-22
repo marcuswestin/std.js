@@ -5,7 +5,7 @@ module.exports = function asyncEach(items, opts) {
 	var finish = opts.finish
 	if (typeof finish != 'function') { throw 'finish function is required' }
 	
-	var objectKeys = isList(items) ? null : Object.keys(items)
+	var objectKeys = isList(items) ? null : keys(items)
 	var numItems = isList(items) ? items.length : objectKeys.length
 	
 	if (!numItems) { return finish(null, []) }
