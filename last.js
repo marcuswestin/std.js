@@ -1,6 +1,11 @@
-var isArray = require('./isArray')
+var isList = require('./isList')
+var keys = require('./keys')
 
-module.exports = function(arr) {
-	if (!isArray(arr)) { return null }
-	return arr[arr.length - 1]
+module.exports = function(obj) {
+	if (!obj) { return null }
+	if (isList(obj)) {
+		return obj[obj.length - 1]
+	} else {
+		return obj[last(keys(obj))]
+	}
 }
