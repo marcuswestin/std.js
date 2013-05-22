@@ -18,6 +18,7 @@ function timeWithBase(base) {
 	var time = {
 		now: now,
 		ago: ago,
+		ofDay: ofDay,
 		// for creating instances of time in a different base
 		inMilliseconds: inMilliseconds,
 		inSeconds: inSeconds,
@@ -39,7 +40,8 @@ function timeWithBase(base) {
 	function getLocalTime(utcTime, utcOffset) { return utcTime + utcOffset * time.minutes }
 	function getLocalDay(utcTime, utcOffset) { return Math.floor(getLocalTime(utcTime, utcOffset) / time.day) }
 	function getLocalHourOfDay(utcTime, utcOffset) { return Math.floor(getLocalTime(utcTime, utcOffset) / time.hour) % 24 }
-
+	function getLocalMinute(utcTime, utcOffset) { return Math.floor(getLocalTime(utcTime, utcOffset) / time.minute) % 60 }
+	
 	time.millisecond = time.milliseconds = 1 / base
 	time.second = time.seconds = 1000 * time.millisecond
 	time.minute = time.minutes = 60 * time.second
@@ -48,6 +50,12 @@ function timeWithBase(base) {
 	time.week = time.weeks = 7 * time.day
 
 	function now(_base) { return Math.round(new Date().getTime() / (_base || base)) }
+
+	function ofDay(utcTime, utcOffset) {
+		return _pad(getLocalHourOfDay(utcTime, utcOffset)+1)+':'+_pad(getLocalMinute(utcTime, utcOffset))
+	}
+	
+	function _pad(num) { return num < 10 ? '0'+num : num }
 
 	function ago(ts, yield) { return ago.stepFunction(ts, yield) }
 	ago.stepFunction = _stepFunction(
