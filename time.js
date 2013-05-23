@@ -18,7 +18,8 @@ function timeWithBase(base) {
 	var time = {
 		now: now,
 		ago: ago,
-		ofDay: ofDay,
+		ofDay12Hour: ofDay12Hour,
+		ofDay24Hour: ofDay24Hour,
 		// for creating instances of time in a different base
 		inMilliseconds: inMilliseconds,
 		inSeconds: inSeconds,
@@ -51,8 +52,15 @@ function timeWithBase(base) {
 
 	function now(_base) { return Math.round(new Date().getTime() / (_base || base)) }
 
-	function ofDay(utcTime, utcOffset) {
+	function ofDay24Hour(utcTime, utcOffset) {
 		return _pad(getLocalHourOfDay(utcTime, utcOffset)+1)+':'+_pad(getLocalMinute(utcTime, utcOffset))
+	}
+
+	function ofDay12Hour(utcTime, utcOffset) {
+		var localHour = getLocalHourOfDay(utcTime, utcOffset)
+		var displayHour = ((localHour % 12) + 1)
+		var AM_PM = (localHour < 12 ? 'am' : 'pm')
+		return displayHour + ':' + _pad(getLocalMinute(utcTime, utcOffset))+' '+AM_PM
 	}
 	
 	function _pad(num) { return num < 10 ? '0'+num : num }
