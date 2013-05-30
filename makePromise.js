@@ -2,22 +2,22 @@ var each = require('std/each')
 
 module.exports = function makePromise() {
 	var dependants = []
-	var fulfillmentArgs = null
+	var result
 	
-	return {
+	return result = {
 		depend:depend,
 		fulfill:fulfill
 	}
 	
 	function depend(fn) {
-		if (fulfillmentArgs) { return fn.apply(this, fulfillmentArgs) }
+		if (result.fulfillment) { return fn.apply(this, result.fulfillment) }
 		dependants.push(fn)
 	}
 	
 	function fulfill() {
-		fulfillmentArgs = slice(arguments, 0)
+		result.fulfillment = slice(arguments, 0)
 		each(dependants, function(fn) {
-			fn.apply(this, fulfillmentArgs)
+			fn.apply(this, result.fulfillment)
 		})
 	}
 }
