@@ -13,7 +13,7 @@ function inWeeks() { return timeWithBase(msTime.weeks) }
 
 function timeWithBase(base) {
 	var farFuture = now() + 3000000000
-	var distantPast = -3000000000
+	var distantPast = 1
 	
 	var time = {
 		now: now,
