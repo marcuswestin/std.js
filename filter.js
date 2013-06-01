@@ -20,7 +20,7 @@ module.exports = function filter(arr, fn) {
 	} else {
 		result = {}
 		each(arr, function(value, key) {
-			if (!fn(value, index)) { return }
+			if (!fn(value, key)) { return }
 			result[key] = value
 		})
 	}
