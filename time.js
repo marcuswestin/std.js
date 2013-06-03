@@ -58,7 +58,7 @@ function timeWithBase(base) {
 
 	function ofDay12Hour(utcTime, utcOffset) {
 		var localHour = getLocalHourOfDay(utcTime, utcOffset)
-		var displayHour = ((localHour % 12) + 1)
+		var displayHour = (localHour == 12 ? 12 : localHour % 12)
 		var AM_PM = (localHour < 12 ? 'am' : 'pm')
 		return displayHour + ':' + _pad(getLocalMinute(utcTime, utcOffset))+' '+AM_PM
 	}
