@@ -1,10 +1,9 @@
-var each = require('./each'),
-	isArray = require('./isArray')
+var isList = require('./isList')
+var setProps = require('./setProps')
 
-module.exports = function copy(obj, deep) {
-	var result = isArray(obj) ? new Array(obj.length) : {}
-	each(obj, function(val, key) {
-		result[key] = (deep && typeof val == 'object') ? copy(val, deep) : val
-	})
+module.exports = function copy(original, additionalProps) {
+	var result = isList(original) ? [] : {}
+	setProps(result, original)
+	if (additionalProps) { setProps(result, additionalProps) }
 	return result
 }

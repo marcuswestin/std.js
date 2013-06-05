@@ -1,10 +1,9 @@
 var each = require('./each')
-var copy = require('./copy')
 
 module.exports = function setProps(target, overwriteProps) {
-	var result = copy(target)
+	if (!target) { return null }
 	each(overwriteProps, function(val, key) {
-		result[key] = overwriteProps[key]
+		target[key] = overwriteProps[key]
 	})
-	return result
+	return target
 }
