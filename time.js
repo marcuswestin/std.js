@@ -29,8 +29,10 @@ function timeWithBase(base) {
 		inWeeks: inWeeks,
 		// utc vs local time
 		getLocalTime: getLocalTime,
+		getLocalTimeOfDay: getLocalTimeOfDay,
 		getLocalDay: getLocalDay,
 		getLocalHourOfDay: getLocalHourOfDay,
+		untilLocalTimeOfDay: untilLocalTimeOfDay,
 		// helpers
 		farFuture: farFuture,
 		distantFuture: farFuture,
@@ -39,9 +41,15 @@ function timeWithBase(base) {
 	}
 
 	function getLocalTime(utcTime, utcOffset) { return utcTime + utcOffset * time.minutes }
+	function getLocalTimeOfDay(utcTime, utcOffset) { return getLocalTime(utcTime, utcOffset) % time.day }
 	function getLocalDay(utcTime, utcOffset) { return Math.floor(getLocalTime(utcTime, utcOffset) / time.day) }
 	function getLocalHourOfDay(utcTime, utcOffset) { return Math.floor(getLocalTime(utcTime, utcOffset) / time.hour) % 24 }
 	function getLocalMinute(utcTime, utcOffset) { return Math.floor(getLocalTime(utcTime, utcOffset) / time.minute) % 60 }
+	function untilLocalTimeOfDay(utcTime, utcOffset, timeOfDay) {
+		var targetLocalTimeOfDay = (timeOfDay % time.day)
+		var difference = (targetLocalTimeOfDay - getLocalTimeOfDay(utcTime, utcOffset))
+		return (difference < 0 ? time.day + difference : difference)
+	}
 	
 	time.millisecond = time.milliseconds = 1 / base
 	time.second = time.seconds = 1000 * time.millisecond
