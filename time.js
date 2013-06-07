@@ -16,6 +16,7 @@ function timeWithBase(base) {
 	var distantPast = 1
 	
 	var time = {
+		base: base,
 		now: now,
 		ago: ago,
 		ofDay12Hour: ofDay12Hour,
