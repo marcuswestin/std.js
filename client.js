@@ -49,6 +49,8 @@ var Client = Class(function() {
 				version = { major:parseInt(parts[0]), minor:parseInt(parts[1]), patch:parseInt(parts[2]) }
 			
 			this.os = { version:version }
+		} else {
+			this.isOSX = this._is('Mac OS X')
 		}
 		
 		if (this.isOpera && this._userAgent.match('Opera Mobi')) { this.isMobile = true } // Opera mobile is a proper mobile browser - Opera/9.80 (Android; Opera Mini/6.5.26571/ 26.1069; U; en) Presto/2.8.119 Version/10.54
