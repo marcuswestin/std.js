@@ -38,7 +38,7 @@ module.exports = proto(null,
 			for (var i=0; i<this._callbacks.length; i++) {
 				this._notify(this._callbacks[i])
 			}
-			delete this._callbacks
+			this._callbacks = null
 		},
 		_notify: function(callback) {
 			callback(this._error, !this._error && this._results)
