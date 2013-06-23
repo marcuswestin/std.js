@@ -221,7 +221,7 @@ module.exports = function pack (format) {
                 status = isNaN(n = parseFloat(argument)) || n === -Infinity || n === +Infinity ? n : 0;
                 exp = 0;
                 len = 2 * bias + 1 + precisionBits + 3;
-                bin = new Array(len);
+                bin = [];
                 signal = (n = status !== 0 ? 0 : n) < 0;
                 n = Math.abs(n);
                 intPart = Math.floor(n);

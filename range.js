@@ -7,7 +7,7 @@ module.exports = function range(start, stop, step) {
 	
 	var length = Math.max(Math.ceil((stop - start) / step), 0)
 	var index = 0
-	var result = new Array(length)
+	var result = []
 	
 	while (index < length) {
 		result[index++] = start
