@@ -4,6 +4,8 @@ var each = require('./each')
 
 var msTime = module.exports = timeWithBase(1) // millisecond
 
+function inNanoseconds() { return timeWithBase(msTime.nanoseconds) }
+function inMicroseconds() { return timeWithBase(msTime.milliseconds) }
 function inMilliseconds() { return timeWithBase(msTime.milliseconds) }
 function inSeconds() { return timeWithBase(msTime.seconds) }
 function inMinutes() { return timeWithBase(msTime.minutes) }
@@ -22,6 +24,8 @@ function timeWithBase(base) {
 		ofDay12Hour: ofDay12Hour,
 		ofDay24Hour: ofDay24Hour,
 		// for creating instances of time in a different base
+		inNanoseconds: inNanoseconds,
+		inMicroseconds: inMicroseconds,
 		inMilliseconds: inMilliseconds,
 		inSeconds: inSeconds,
 		inMinutes: inMinutes,
@@ -52,12 +56,16 @@ function timeWithBase(base) {
 		return (difference < 0 ? time.day + difference : difference)
 	}
 	
-	time.millisecond = time.milliseconds = 1 / base
+	time.millisecond = time.milliseconds = 1 / base // millisecond is JS native
+	// Bigger
 	time.second = time.seconds = 1000 * time.millisecond
 	time.minute = time.minutes = 60 * time.second
 	time.hour = time.hours = 60 * time.minute
 	time.day = time.days = 24 * time.hour
 	time.week = time.weeks = 7 * time.day
+	// Smaller
+	time.microsecond = time.microseconds = time.millisecond / 1000
+	time.nanosecond = time.nanoseconds = time.microsecond / 1000
 
 	function now(_base) { return Math.round(new Date().getTime() / (_base || base)) }
 
