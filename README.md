@@ -1,7 +1,15 @@
 std
 ===
 
-Standard library javascript functionality
+Standard library JavaScript functionality
+
+Notice
+------
+
+The `std` npm package has transferred ownership. To install this package use:
+```shell
+npm i std@"<1.0.0"
+```
 
 Acknowledgements
 ----------------
